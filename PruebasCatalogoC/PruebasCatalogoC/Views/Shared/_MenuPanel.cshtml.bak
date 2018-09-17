@@ -1,0 +1,960 @@
+﻿@{
+    Layout = null;
+}
+
+    <div id="dvMenuPanel" class="dvMenuPanel" style="display:none;">
+
+        @if (PageData[0] == PruebasCatalogoC.Vo.VistaSistema.Configuracion ||
+                PageData[0] == PruebasCatalogoC.Vo.VistaSistema.CapturaEmisorRequerido)
+        {
+            if (PageData[2] == PruebasCatalogoC.Vo.MenuConfiguracion.Usuarios)
+            {
+            <div class="menuSection" id="secUsuario">
+                <div class="header">
+                    <label class="caption">USUARIOS</label>
+                </div>
+
+                <span id="mnuConfiguracion" ac="segusu.1" class="item">Configuraci&oacute;n de seguridad</span>
+                <span id="mnuUsuario" ac="segusu.2" class="item">Usuarios</span>
+                <span id="mnuPerfil" ac="segusu.3" class="item">Perfiles</span>
+                <span id="mnuAccion" ac="segusu.4" class="item">Acciones</span>
+
+                <div class="clearing"></div>
+            </div>
+            <div class="menuSection" id="secAcuses">
+                <div class="header">
+                    <label class="caption">Acusadores</label>
+                </div>
+
+                <span id="mnuConfiguracionA" ac="macuacusc.0" class="item">Configuraci&oacute;n</span>
+                <span id="mnuAcusadores" ac="macuacus.0" class="item">Acusadores</span>
+            </div>
+            <div class="menuSection" id="secconfig">
+                <div class="header">
+                    <label class="caption">Configuraciones</label>
+                </div>
+                <span id="mnuConfiguraciones" class="item">Configuraci&oacute;n</span>
+            </div>
+            }
+
+            if (PageData[2] == PruebasCatalogoC.Vo.MenuConfiguracion.Log)
+            {
+            <div class="menuSection" id="secLog">
+                <div class="header">
+                    <label ac="seglog.0" class="caption">LOG DE SISTEMA@*<label name="flechaDesplegado">&#9660;</label><label name="flechaColapsado" style ="display:none;">&#9654;</label>*@ </label>
+                </div>
+                <span id="mnuLog" ac="seglog.2" class="item">Log</span>
+                <span id="mnuLogAgente" ac="seglog.2" class="item">Log de agentes</span>
+
+                <div class="clearing"></div>
+            </div>
+            }           
+            @*<div class="menuSection">
+                <div class="header">
+                    <label class="caption">CONFIGURACIÓN</label>
+                </div>
+
+                <!--<span id="mnuFormatoFacturas" class="item">Formato facturas</span>-->
+                <span id="mnuLogo" class="item">Logo</span>
+                <!--<span id="mnuColores" class="item">Colores</span>-->
+                <span id="mnuPreferencias" class="item">Preferencias</span>
+
+                <div class="clearing"></div>
+            </div>*@
+
+        }
+
+        @if (PageData[0] == PruebasCatalogoC.Vo.VistaSistema.Aplicacion)
+        {
+            if (PageData[1] == PruebasCatalogoC.Vo.MenuSistema.Catalogo)
+            {            
+                <div class="menuSection" id="secCatalogoGenerales">
+                    <div class="header">
+                        <label class="caption">GENERALES</label>
+                    </div>
+
+                    <span id="mnuCorreo" ac="catpco.0" class="item">Correos</span>
+                    <span id="mnuProveedor" ac="mreqprov.0" class="item">Proveedores</span>
+                    <span id="mnuPrefiles" class="item">Perfiles</span>
+                    <span id="mnuCfgSLA" ac="catconfsla.1" class="item">Configuraci&oacute;n SLA Solicitudes</span>
+                
+                    <div class="clearing"></div>
+                </div>
+                
+                @*<div class="menuSection" id="secAltas">*@
+                <div class="menuSection" id="secCatalogoAltas">
+                    <div class="header">
+                        @*<label class="caption">CATÁLOGOS</label>*@
+                        <label class="caption">SOLICITUDES DE CUENTAS</label>
+                    </div>
+
+                    <span id="mnuSuperSistema" ac="catsups.0" class="item">Super Sistema</span>
+                    <span id="mnuMacroSistema" ac="catmacs.0" class="item">Macro Sistema</span>
+                    <span id="mnuUnidadNegocioEmpresaSS" ac="catremps.0" class="item">Unidad de Negocio / Empresa - super sistema</span>
+                    <span id="mnuOMProyecto" ac="catompr.0" class="item">OM / Proyecto</span>
+                    <span id="mnuArea" ac="catarea.0" class="item">Área</span>
+                    <span id="mnuSubArea" ac="catsubar.0" class="item">Sub Área</span>
+                    <span id="mnuSistemaSubArea" ac="catresubs.0" class="item">Administración de relación de sub área por sistema / módulo</span>
+
+                    <div class="clearing"></div>
+                </div> 
+            
+                <div class="menuSection" id="secCatalogoOrganizacional">
+                    <div class="header" id="secCatalogoOrganizacionalHeader">
+                        <label class="caption">ORGANIZACIONAL</label>
+                    </div>
+                
+                    <span id="mnuEmpresa" ac="catempr.0" class="item">Empresas</span>
+                    <span id="mnuSubDireccion" ac="catsubd.0" class="item">SubDirecciones</span>
+                    <span id="mnuDepartamento" ac="catdep.0" class="item">Departamentos</span>
+                    <span id="mnuLugar" ac="catLug.0" class="item">Lugares</span>
+                    <span id="mnuPuesto" ac="catpuest.0" class="item">Puestos</span>
+                    <span id="mnuUbicacion" ac="catUbic.0" class="item">Ubicaciones</span>                    
+                    <span id="mnuCaracteristicas" ac="catcaract.0" class="item">Características</span>
+                    <span id="mnuEmpleados" ac="catemp.0" class="item">Empleados</span>
+                    <span id="mnuAutorizadores" ac="cataut.0" class="item">Autorizadores</span>
+                    <div class="clearing"></div>
+                </div>
+            
+                <div class="menuSection" id="secCatalogoSistemas">
+                    <div class="header">
+                        <label class="caption">SISTEMAS</label>
+                    </div>
+
+                    <span id="mnuSistema" ac="catSis.0" class="item">Sistemas</span>
+                    <span id="mnuTipoSistema" ac="catTips.0" class="item">Tipos de Sistemas</span>
+                    <span id="mnuRol" ac="catRol.0" class="item">Roles</span>
+                    <span id="mnuMovRol" ac="catmotrol.0" class="item">Motivo Rol</span>
+                    <span id="mnuPrivilegio" ac="catPriv.0" class="item">Privilegios</span>
+                    <span id="mnuCuenta" ac="catCtas.0"  class="item">Cuentas</span>              
+                    <span id="mnuTorre" ac="mreqtor.0" class="item">Torres</span>
+
+                    <div class="clearing"></div>
+                </div>
+            
+                <div class="menuSection" id="secCatalogoRequermientos">
+                    <div class="header">
+                        <label class="caption">REQUERIMIENTOS</label>
+                    </div>
+
+                    <span id="mnuCategoria" class="item">Categorias de Requerimiento</span>
+                    <span id="mnuRequerimiento" ac="mreqreq.0" class="item">Requerimientos</span>
+                
+                    <div class="clearing"></div>
+                </div>
+            
+                @*<div class="menuSection" id="secCatalogoActivos">
+                    <div class="header">
+                        <label class="caption">ACTIVOS</label>
+                    </div>
+
+                    <span id="mnuTipoActivo" ac="macttipact.0" class="item">Tipos de activo</span>
+                    <span id="mnuMarca" ac="mactmarc.0" class="item">Marcas</span>
+                    <span id="mnuModelo" ac="mactmode.0" class="item">Modelos</span>
+                    <span id="mnuTipoAdquisicion" ac="macttipadq.0" class="item">Tipos de adquisición</span>
+                    @*<span id="mnuEstatusAsignacion" class="item">Estatus de asignación</span>
+                    <span id="mnuBodegasUbicaciones" ac="mactbod.0" class="item">Bodegas/Ubicaciones</span>
+                    <span id="mnuMotivoTrasladoActivo" ac="mactmottras.0" class="item">Motivos de traslados de activos</span>
+                    <span id="mnuAnexo" ac="mactanexo.0" class="item">Anexos / Facturas</span>
+                    <span id="mnuCentrodeCosto" ac="mactcencos.0" class="item">Centros de Costo</span>
+                    <span id="mnuCentrodeCostoSAP" ac="mactcencos.0" class="item">Centros de Costo SAP</span>
+                    <span id="mnuUnidadNegocio" ac="mactunidneg.0" class="item">Unidades de Negocio</span>
+                    <span id="mnuActivo" ac="mact.0" class="item">Activos</span>
+
+                    <div class="clearing"></div>
+                </div>*@
+            }
+
+            if (PageData[1] == PruebasCatalogoC.Vo.MenuSistema.Paquetes)
+            {
+            <div class="menuSection" id="secpaquetes">
+                <div class="header">
+                    @*<img src="@Url.Content("~/Content/templates/normal/imagenes/emit-izq.png")" alt="e" />*@
+                    <label class="caption">PAQUETES ABC</label>
+                    
+                </div>
+
+                <span id="mnupaquetebienvenida" class="item">Paquete Bienvenida</span>
+                <span id="mnupaquetedespedida" class="item">Paquete Despedida</span>
+                
+                <div class="clearing"></div>
+            </div>
+            }
+
+            if (PageData[1] == PruebasCatalogoC.Vo.MenuSistema.IntegracionCorreos)
+            {
+            <div class="menuSection" id="secintegracioncorreos">
+                <div class="header">
+                    @*<img src="@Url.Content("~/Content/templates/normal/imagenes/emit-izq.png")" alt="e" />*@
+                    <label class="caption">Integraci&oacute;n Correos</label>                    
+                </div>
+
+                <span id="mnuCorreosInterfaces" ac="confcorreo.2" class="item">Interfaces</span>
+                <span id="mnuCorreosConfiguraciones" ac="confcorreo.3" class="item">Configuraciones</span>
+
+                <div class="clearing"></div>
+            </div>
+            <div class="menuSection" id="secconsultacorreos">
+                <div class="header">
+                    @*<img src="@Url.Content("~/Content/templates/normal/imagenes/emit-izq.png")" alt="e" />*@
+                    <label class="caption">Consulta listas de Correos</label>                    
+                </div>
+
+                <span id="mnuCorreosTodos" ac="confcorreo.4" class="item">Correos todos</span>
+                <span id="mnuCorreosNoIdentificados" ac="confcorreo.4" class="item">Correos no identificados</span>
+                <span id="mnuCorreosAltasPendientes" ac="confcorreo.4" class="item">Correos alta pendientes</span>
+                <span id="mnuCorreosBajasPendientes" ac="confcorreo.4" class="item">Correos bajas pendientes</span>
+                <span id="mnuCorreosError" ac="confcorreo.4" class="item">Correos con error</span>
+
+                <div class="clearing"></div>
+            </div>
+            }
+
+            if (PageData[1] == PruebasCatalogoC.Vo.MenuSistema.RevisionRoles)
+            {
+            <div class="menuSection" id="secrevroles">
+                <div class="header">
+                    @*<img src="@Url.Content("~/Content/templates/normal/imagenes/emit-izq.png")" alt="e" />*@
+                    <label ac="revRolrevRol.0" class="caption">REVISIÓN DE ROLES</label>
+                    
+                </div>
+
+                <span id="mnusistemascertificables" ac="revRolsc.0" class="item">Sistemas Certificables</span>
+                <span id="mnupendientesbsa" ac="RevRolpbsa.0" class="item">Pendientes BSA</span>
+                <span id="mnupendientesso" ac="revRolpso.0" class="item">Pendientes SO</span>
+                <span id="mnupendientestodos" ac="revRoltod.0" class="item">Todos</span>
+                
+                <div class="clearing"></div>
+            </div>
+            }
+
+            if (PageData[1] == PruebasCatalogoC.Vo.MenuSistema.Recertificacion)
+            {
+                <div class="menuSection" id="secrevcuentas">
+                    <div class="header">
+                        <label ac="recrec.0" class="caption">RECERTIFICACIÓN</label>
+                    </div>
+                    <span ac="recrec.1" id="mnuseguimientocertif" class="item">Seguimiento de Certificación</span>
+                    <span ac="recrec.2" id="mnuapppendientes" class="item">Aplicaciones pendientes de iniciar SO</span>
+                    <span ac="recrevm.4" id="mnucambiarman" class="item">Cambiar Manager</span>
+                    <span ac="recrec.3" id="mnucambiarso" class="item">Cambiar SO</span>
+                     <span ac="recrec.4" id="mnureiniciarcu" class="item">Reiniciar Certificación</span>      
+                    <div class="clearing"></div>
+                </div>
+                <div class="menuSection" id="managerRev">
+                    <div class="header">
+                        <label class="caption">REVISIÓN MANAGER</label>
+                    </div>
+                    <span ac="recrevm.1" id="mnurevisionmanager" class="item">Pendientes de Revisión</span>
+                    <span ac="recrevm.2" id="mnuaccrevmanager" class="item">Accesos Revisados</span>
+                    <span ac="recrevm.3" id="mnunoidentificados" class="item">No Identificados</span>
+                    <div class="clearing"></div>
+                </div>
+                <div class="menuSection" id="SoRev">
+                    <div class="header">
+                        <label class="caption">REVISIÓN SO</label>
+                    </div>
+                    <span ac="recrevso.1" id="mnurevisionso" class="item">Pendientes de Revisión</span>
+                    <span ac="recrevso.4" id="mnurevisionsorecer" class="item">Certificadas por Manager</span>
+                    <span ac="recrevso.5" id="mnurevisionsobaja" class="item">Bajas requeridas por Manager</span>
+                    <span ac="recrevso.6" id="mnurevisionsocamb" class="item">Cambios requeridos por Manager</span>
+                    <span ac="recrevso.2" id="mnupendprocso" class="item">Pendientes de Procesar</span>
+                    <span ac="recrevso.3" id="mnuaccrevso" class="item">Accesos Revisados</span>
+                    <div class="clearing"></div>
+                </div>
+            
+                <div class="menuSection" id="seguimiento">
+                    <div class="header">
+                        <label class="caption">SEGUIMIENTO</label>
+                    </div>
+                    <span ac="recseg.1" id="mnuReqCertificacion" class="item">Requerimientos de Recertificación</span>
+                    <span ac="recseg.2" id="mnupendprocadm" class="item">Pendientes de Procesar</span>
+                    <span ac="recseg.3" id="mnuestatusrecer" class="item">Estatus de Recertificación</span>
+                    <div class="clearing"></div>
+                </div>
+                <div class="menuSection" id="secauditoria">
+                    <div class="header">
+                        <label class="caption">AUDITORÍA</label>
+                    </div>
+
+                     <span id="mnuAuditoria" ac="revAto.0" class="item">Auditoría</span>
+                    
+                    <div class="clearing"></div>
+                </div>
+                <div class="menuSection" id="secrevrecertificacion">
+                    <div class="header">
+                        <label class="caption">RECERTIFICACIÓN</label>
+                    </div>
+                    <span ac ="revrec.0" id="mnurecertificacion" class="item">Recertificaci&oacute;n</span>
+                    <span ac ="revrec.0" id="mnuvistarecertificacion" class="item">Reporte auditor&iacute;a</span>
+                    <span ac ="revrec.0" id="mnurepresumenrecertifica" class="item">Resumen de certificación</span>
+                    <div class="clearing"></div>
+                </div>
+            }
+
+            if (PageData[1] == PruebasCatalogoC.Vo.MenuSistema.Revisiones)
+            {
+                @*<div class="menuSection" id="secauditoria">
+                <div class="header">
+                    <label class="caption">AUDITORÍA</label>
+                </div>
+
+                 <span id="mnuAuditoria" ac="revAto.0" class="item">Auditoría</span>
+                
+                <div class="clearing"></div>
+                </div>*@
+            
+                @*<div class="menuSection" id="secrevrecertificacion">
+                <div class="header">
+                    <label class="caption">RECERTIFICACIÓN</label>
+                </div>
+                <span ac ="revrec.0" id="mnurecertificacion" class="item">Recertificaci&oacute;n</span>
+                  
+                <div class="clearing"></div>
+            </div>*@
+            }
+            if (PageData[1] == PruebasCatalogoC.Vo.MenuSistema.Solicitudes)
+            {
+                <div class="menuSection" id="secSolicitudes">
+                    <div class="header">
+                        <label class="caption">Solicitudes</label>
+                    </div>
+
+                    <span id="mnusolicitud" ac="solsolic.1" class="item">Crear alta</span>
+                    <span id="mnusolicitudcambio" ac="solsolic.2" class="item">Crear cambio</span>
+                    <span id="mnusolicitudbaja" ac="solsolic.3" class="item">Crear baja</span>
+                    <span id="mnusolicitudpendientes" ac="solsolic.4" class="item">Mis Pendientes</span>
+                    <span id="mnuMisSolicitudes" ac="solsolic.4" class="item">Mis solicitudes</span>
+                    <span id="mnusolicitudtodas" ac="solsolic.5" class="item">Todos los pendientes</span>
+                    <div class="clearing"></div>
+                </div>
+            
+                <div class="menuSection" id="secSolicitudes">
+                    <div class="header">
+                        <label class="caption">Solicitudes múltiples</label>
+                    </div>
+
+                    <span id="mnusolicitudAltaMultiple" ac="solsolic.1" class="item">Crear altas múltiples</span>
+                    <span id="mnusolicitudBajaMultiple" ac="solsolic.1" class="item">Crear bajas múltiples</span>
+                    <span id="mnusolicitudSolMultiplesList" ac="solsolic.1" class="item">Solicitudes múltiples</span>
+                </div>
+            }
+
+            if (PageData[1] == PruebasCatalogoC.Vo.MenuSistema.Requerimientos)
+            {            
+                <div class="menuSection" ac="mreqsol.0" id="secRequerimientos">
+                    <div class="header">
+                        <label class="caption">REQUERIMIENTOS</label>
+                    </div>
+
+                    <span id="mnuNuevoReq" ac="mreqsol.1" class="item">Nuevo</span>
+                    <span id="mnuMisPendientesReq" ac="mreqsol.3" class="item">Mis Pendientes</span>
+                    <span id="mnuTodosReq" ac="mreqsol.5" class="item">Todos</span>
+
+                    <div class="clearing"></div>
+                </div>                
+            }
+
+            if (PageData[1] == PruebasCatalogoC.Vo.MenuSistema.Reportes)
+            {
+                <div class="menuSection" ac="mreqrep.0" id="secReportes">
+                    <div class="header">
+                        <label class="caption">REPORTES</label>
+                    </div>
+
+                    <span id="mnuRequerimientos" ac="mreqrep.1" class="item">Requerimientos</span>
+                    <span id="mnuNivelesServicio" ac="mreqrep.2" class="item">Niveles de Servicio</span>
+                    <span id="mnuNivelesServicioSols" ac="mreqrep.2" class="item">Niveles de Servicio Solicitudes</span>
+                    <span id="mnuEncuestas" ac="mreqrep.3" class="item">Encuestas</span>
+                     <span id="mnuCuentasHD" ac="mreqrep.4" class="item">Cuentas</span>
+                     <span id="mnuestatussolicitudes" ac="mreqrep.5" class="item">Estatus de Solicitudes</span>
+                     <span id="mnudispersionactivos" ac="mreqrep.6" class="item">Dispersión de Activos</span>
+                     <span id="mnuestatusrecertificacion" ac="mreqrep.7" class="item">Estatus de Recertificación</span>
+                    <div class="clearing"></div>
+                </div>                
+            }
+            if (PageData[1] == PruebasCatalogoC.Vo.MenuSistema.ControlRiesgos)
+            {
+                <div class="menuSection" ac="riesgocat.1" id="secCtrlRiesgos">
+                    <div class="header">
+                        <label class="caption">CATALOGOS</label>
+                    </div>
+
+                    <span id="mnuIndiceConflicto" ac="riesgocat.1" class="item">Indices de conflictos</span>
+                    
+                    <div class="clearing"></div>
+                </div>   
+            
+                <div class="menuSection" ac="riesgorev.2" id="secCtrlRiesgosProcesos">
+                    <div class="header">
+                        <label class="caption">PROCESOS</label>
+                    </div>
+
+                    <span id="mnuRevisionConflictos" ac="riesgorev.2" class="item">Revisión de conflictos</span>
+                    <div class="clearing"></div>
+                </div>      
+            
+                <div class="menuSection" ac="" id="secCtrlRiesgosReportes">
+                    <div class="header">
+                        <label class="caption">REPORTES</label>
+                    </div>
+                    <span id="mnuConflictoEmpleadoReporte" ac="riesgorep.3" class="item">Detalle conflictos</span>
+                    <span id="mnuBusquedaConflicto" ac="riesgorep.4" class="item">Reporte conflictos</span>
+                    <div class="clearing"></div>
+                </div>               
+            }
+            if (PageData[1] == PruebasCatalogoC.Vo.MenuSistema.Activos)
+            {
+                
+                <div class="menuSection" id="secCatalogoActivos">
+                    <div class="header">
+                        <label class="caption">ACTIVOS</label>
+                    </div>
+
+                    <span id="mnuTipoActivo" ac="macttipact.0" class="item">Tipos de activo</span>
+                    <span id="mnuMarca" ac="mactmarc.0" class="item">Marcas</span>
+                    <span id="mnuModelo" ac="mactmode.0" class="item">Modelos</span>
+                    <span id="mnuTipoAdquisicion" ac="macttipadq.0" class="item">Tipos de adquisición</span>
+                    <span id="mnuBodegasUbicaciones" ac="mactbod.0" class="item">Bodegas/Ubicaciones</span>
+                    <span id="mnuMotivoTrasladoActivo" ac="mactmottras.0" class="item">Motivos de traslados de activos</span>
+                    <span id="mnuAnexo" ac="mactanexo.0" class="item">Anexos / Facturas</span>
+                    <span id="mnuCentrodeCosto" ac="mactcencos.0" class="item">Centros de Costo</span>
+                    <span id="mnuCentrodeCostoSAP" ac="mactcencos.0" class="item">Centros de Costo SAP</span>
+                    <span id="mnuUnidadNegocio" ac="mactunidneg.0" class="item">Unidades de Negocio</span>
+                    <span id="mnuActivo" ac="mactactivo.0" class="item">Activos</span>
+
+                    <div class="clearing"></div>
+                </div>       
+            }
+            if (PageData[1] == PruebasCatalogoC.Vo.MenuSistema.RecertificacionActivos)
+            {
+                <div ac="reactresp.0" class="menuSection" id="secRevisionActivos">
+                    <div class="header">
+                        <label class="caption">Responsivas de activos</label>
+                    </div>
+                    <span id="mnuPlantillaResponsiva" ac="reactresp.1" class="item">Plantillas responsivas</span>
+                    <span id="mnuActivoResponsiva" ac="reactresp.2" class="item">Activos</span>
+                    <span id="mnuMisActivos" ac="reactresp.4" class="item">Mis Activos</span>
+                    <span id="mnuSolicitudesRevision" ac="reactresp.5" class="item">Solicitudes Revisión</span>
+                    <div class="clearing"></div>
+                </div>
+                <div ac="reactrecert.0" class="menuSection" id="secCertificaActivos">
+                    <div class="header">
+                        <label class="caption">Recertificación de Activos</label>
+                    </div>
+                    <span id="mnuCertificacionActivo" ac="reactrecert.1" class="item">Certificación</span>
+                    <span id="mnuCertificaActivosPendientes" ac="reactrecert.2" class="item">Pendientes revisión</span>
+                    <span id="mnuCertificaActivosPendientesAdmon" ac="reactrecert.3" class="item">Pendientes revisión ADMON</span>                    
+                    <span id="mnuCertificaActivosRevisados" ac="reactrecert.5" class="item">Accesos revisados</span>
+                </div>
+                <div ac="reactrep.0" class="menuSection" id="secReportesCertificaActivos">
+                    <div class="header">
+                        <label class="caption">Reportes</label>
+                    </div>
+                    <span id="mnuResumenRevision" ac="reactrep.1" class="item">Resumen de Revisión</span>
+                </div>
+            }
+
+            if (PageData[1] == PruebasCatalogoC.Vo.MenuSistema.Altas)
+            {
+
+
+            }
+        }
+    </div>
+    
+    @if (PageData[0] != PruebasCatalogoC.Vo.VistaSistema.CapturaEmisorRequerido)
+    {
+
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                var accionesNegadas = null;
+                var tipoVista = '@((int)(PageData[0] ?? 2))';
+
+                if (tipoVista == 1) {
+                    $('#mnuLogo').click(function (e) {
+                        goToUrl('@Url.Action("Logo", "Empresa", new { area = "" })');
+                    });
+
+                    $('#mnuConfiguracion').click(function (e) {
+                        goToUrl('@Url.Action("Editar", "Configuraciones", new { area = "" })' + '?Accion=segusu.1');
+                    });
+
+                    $('#mnuConfiguracionA').click(function (e) {
+                        goToUrl('@Url.Action("EditarConfiguracion", "Acusador", new { area = "Configuracion" })' + '?Accion=segusu.6');
+                    });
+                    
+                    $('#mnuConfiguraciones').click(function (e) {
+                        goToUrl('@Url.Action("List", "Configuracion", new { area = "Configuracion" })' + '?Accion=segusu.6');
+                    });
+                    
+                    $('#mnuAcusadores').click(function (e) {
+                        goToUrl('@Url.Action("List", "Acusador", new { area = "Configuracion" })' + '?Accion=segusu.7');
+                    });
+                    
+                    $('#mnuUsuario').click(function (e) {
+                        goToUrl('@Url.Action("List", "Usuario", new { area = "" })' + '?Accion=segusu.2');
+                    });
+
+                    $('#mnuPerfil').click(function (e) {
+                        goToUrl('@Url.Action("List", "Perfiles", new { area = "" })' + '?Accion=segusu.3');
+                    });
+
+                    $('#mnuAccion').click(function (e) {
+                        goToUrl('@Url.Action("List", "Acciones", new { area = "" })' + '?Accion=segusu.4');
+                    });
+
+                    $('#mnuLog').click(function (e) {
+                        goToUrl('@Url.Action("Log", "Log", new { area = "" })' + '?Accion=seglog.2');
+                    });
+
+                    $('#mnuLogAgente').click(function (e) {
+                        goToUrl('@Url.Action("Proceso", "Log", new { area = "" })' + '?Accion=seglog.2');
+                    });
+
+                    $('#mnuPreferencias').click(function (e) {
+                        goToUrl('@Url.Action("Guardar", "Preferencia", new { area = "" })');
+                    });
+                }
+
+                if (tipoVista == 2) {
+                    $('#mnuEmpresa').click(function (e) {
+                        goToUrl('@Url.Action("List", "CatEmpresa", new { area = "" })' + '?Accion=catempr.0');
+                    });
+                    $('#mnuDepartamento').click(function (e) {
+                        goToUrl('@Url.Action("List", "Departamento", new { area = "" })' + '?Accion=catdep.0');
+                    });
+                    $('#mnuLugar').click(function (e) {
+                        goToUrl('@Url.Action("List", "Lugar", new { area = "" })' + '?Accion=catLug.0');
+                    });
+                    $('#mnuPuesto').click(function (e) {
+                        goToUrl('@Url.Action("List", "Puesto", new { area = "" })' + '?Accion=catpuest.0');
+                    });
+                    $('#mnuUbicacion').click(function (e) {
+                        goToUrl('@Url.Action("List", "Ubicacion", new { area = "" })' + '?Accion=catUbic.0');
+                    });
+                    $('#mnuCaracteristicas').click(function (e) {
+                        goToUrl('@Url.Action("List", "Caracteristicas", new { area = "Catalogos" })' + '?Accion=catcaract.0');
+                    });
+                    $('#mnuEmpleados').click(function (e) {
+                        goToUrl('@Url.Action("List", "Empleado", new { area = "" })' + '?Accion=catemp.0');
+                    });
+                    $('#mnuAutorizadores').click(function (e) {
+                        goToUrl('@Url.Action("ListA", "Empleado", new { area = "" })' + '?Accion=cataut.0');
+                    });
+                    $('#mnuCategoria').click(function (e) {
+                        goToUrl('@Url.Action("List", "Categoria", new { area = "Catalogos" })' + '?Accion=cataut.0');
+                    });
+
+                    $('#mnuCorreo').click(function (e) {
+                        goToUrl('@Url.Action("List", "Correo", new { area = "" })' + '?Accion=catpco.0');
+                    });
+                    $('#mnuSistema').click(function (e) {
+                        goToUrl('@Url.Action("List", "Sistema", new { area = "" })' + '?Accion=catSis.0');
+                    });
+                    $('#mnuRol').click(function (e) {
+                        goToUrl('@Url.Action("List", "Rol", new { area = "" })' + '?Accion=catRol.0');
+                    });
+                    $('#mnuMovRol').click(function (e) {
+                        goToUrl('@Url.Action("List", "MotivoRol", new { area = "Catalogos" })' + '?Accion=catRol.0');
+                    });
+                    $('#mnuPrivilegio').click(function (e) {
+                        goToUrl('@Url.Action("List", "Privilegio", new { area = "" })' + '?Accion=catPriv.0');
+                    });
+
+                    $('#mnuSubDireccion').click(function (e) {
+                        goToUrl('@Url.Action("List", "SubDireccion", new { area = "" })' + '?Accion=catsubd.0');
+                    });
+
+                    $('#mnuTipoSistema').click(function (e) {
+                        goToUrl('@Url.Action("List", "TipoSistema", new { area = "" })' + '?Accion=catTips.0');
+                    });
+
+                    $('#mnuCuenta').click(function (e) {
+                        goToUrl('@Url.Action("List", "CatCuenta", new { area = "" })' + '?Accion=catCtas.0');
+                    });
+
+                    $('#mnusistemascertificables').click(function (e) {
+                        goToUrl('@Url.Action("List", "RevisionDeRoles", new { area = "" })' + '?Accion=revRolsc.0');
+                    });
+                    $('#mnuAuditoria').click(function (e) {
+                        goToUrl('@Url.Action("List", "Auditoria", new { area = "" })' + '?Accion=revAto.0');
+                    });
+                    $('#mnupendientesbsa').click(function (e) {
+                        goToUrl('@Url.Action("ListBSA", "RevisionDeRoles", new { area = "" })' + '?Accion=RevRolpbsa.0');
+                    });
+                    $('#mnupendientesso').click(function (e) {
+                        goToUrl('@Url.Action("ListSO", "RevisionDeRoles", new { area = "" })' + '?Accion=revRolpso.0');
+                    });
+                    $('#mnupendientestodos').click(function (e) {
+                        goToUrl('@Url.Action("ListTodos", "RevisionDeRoles", new { area = "" })' + '?Accion=revRolpso.0');
+                    });
+                    
+                    $('#mnusolicitudSolMultiplesList').click(function (e) {
+                        goToUrl('@Url.Action("SolicitudesMultiples", "SolicitudesMultiples", new { area = "Solicitudes" })' + '?Accion=solsolic.1');
+                    });
+                    $('#mnusolicitudAltaMultiple').click(function (e) {
+                        goToUrl('@Url.Action("Alta", "SolicitudesMultiples", new { area = "Solicitudes" })' + '?Accion=solsolic.1');
+                    });
+                    $('#mnusolicitudBajaMultiple').click(function (e) {
+                        goToUrl('@Url.Action("Baja", "SolicitudesMultiples", new { area = "Solicitudes" })' + '?Accion=solsolic.1');
+                    });
+                    $('#mnusolicitud').click(function (e) {
+                        goToUrl('@Url.Action("Alta", "Altas", new { area = "Solicitudes" })' + '?Accion=solsolic.1');
+                    });
+                    $('#mnusolicitudcambio').click(function (e) {
+                        goToUrl('@Url.Action("Cambio", "Cambios", new { area = "Solicitudes" })' + '?Accion=solsolic.2');
+                    });
+                    $('#mnusolicitudbaja').click(function (e) {
+                        goToUrl('@Url.Action("Baja", "Bajas", new { area = "Solicitudes" })' + '?Accion=solsolic.3');
+                    });
+                    $('#mnusolicitudpendientes').click(function (e) {
+                        goToUrl('@Url.Action("MisPendientes", "Solicitud", new { area = "Solicitudes" })'+ '?Accion=solsolic.4');
+                    });
+                    $('#mnuMisSolicitudes').click(function(e){
+                        goToUrl('@Url.Action("MisSolicitudes", "Solicitud", new { area = "Solicitudes" })'+ '?Accion=solsolic.4');
+                    });
+                    $('#mnusolicitudtodas').click(function (e) {
+                        goToUrl('@Url.Action("List", "Solicitud", new { area = "Solicitudes" })'+ '?Accion=solsolic.5');
+                    });
+                    $('#mnuseguimientocertif').click(function (e) {
+                        goToUrl('@Url.Action("List", "Certificacion", new { area = "" })' + '?Accion=recrec.1');
+                    });
+                    $('#mnuapppendientes').click(function (e) {
+                        goToUrl('@Url.Action("ListApp", "Certificacion", new { area = "" })' + '?Accion=recrec.2');
+                    });
+                    $('#mnucambiarman').click(function (e) {
+                        goToUrl('@Url.Action("CambiarManagerList", "Certificacion", new { area = "" })' + '?Accion=recrevm.4');
+                    });
+
+                    $('#mnucambiarso').click(function (e) {
+                        goToUrl('@Url.Action("CambiarSOList", "Certificacion", new { area = "" })' + '?Accion=recrec.3');
+                    });
+                    
+                    $('#mnureiniciarcu').click(function (e) {
+                        goToUrl('@Url.Action("ReiniciarCuentasList", "Certificacion", new { area = "" })' + '?Accion=recrec.4');
+                    });
+                    $('#mnurevisionmanager').click(function (e) {
+                        goToUrl('@Url.Action("PendientesManagerLista", "Certificacion", new { area = "" })' + '?Accion=recrevm.1');
+                    });
+                    $('#mnunoidentificados').click(function (e) {
+                        goToUrl('@Url.Action("NoIdentificadosList", "Certificacion", new { area = "" })' + '?Accion=recrevm.1');
+                    });
+                    
+                    $('#mnuaccrevmanager').click(function (e) {
+                        goToUrl('@Url.Action("ListARManager", "Certificacion", new { area = "" })' + '?Accion=recrevm.2');
+                    });
+                    $('#mnurevisionso').click(function (e) {
+                        goToUrl('@Url.Action("PendientesSOLista", "Certificacion", new { area = "" })' + '?Accion=recrevso.1');
+                    });
+                    $('#mnurevisionsorecer').click(function (e) {
+                        goToUrl('@Url.Action("PendientesRecertificarLista", "Certificacion", new { area = "" })' + '?Accion=recrevso.4');
+                    });
+                    $('#mnurevisionsorecer').click(function (e) {
+                        goToUrl('@Url.Action("PendientesRecertificarLista", "Certificacion", new { area = "" })' + '?Accion=recrevso.4');
+                    });
+
+                    $('#mnurevisionsobaja').click(function (e) {
+                        goToUrl('@Url.Action("PendientesBajaLista", "Certificacion", new { area = "" })' + '?Accion=recrevso.5');
+                    });
+                    $('#mnurevisionsocamb').click(function (e) {
+                        goToUrl('@Url.Action("PendientesCambioLista", "Certificacion", new { area = "" })' + '?Accion=recrevso.6');
+                    });
+
+                    $('#mnupendprocso').click(function (e) {
+                        goToUrl('@Url.Action("PendientesProcesarList", "Certificacion", new { area = "" })' + '?Accion=recrevso.2');
+                    });
+                    $('#mnuaccrevso').click(function (e) {
+                        goToUrl('@Url.Action("ListARSO", "Certificacion", new { area = "" })' + '?Accion=recrevso.3');
+                    });
+                    $('#mnurecertificacion').click(function (e) {
+                        goToUrl('@Url.Action("List", "Recertificacion", new { area = "" })' + '?Accion=revrec.0');
+                    });
+                    $('#mnuvistarecertificacion').click(function (e) {
+                        goToUrl('@Url.Action("ReporteAuditoria", "Recertificacion", new { area = "" })' + '?Accion=revrec.0');
+                    });
+                    $('#mnurepresumenrecertifica').click(function (e) {
+                        goToUrl('@Url.Action("ReporteResumenRecertificacion", "RecertificacionRep", new { area = "Reportes" })' + '');
+                    });
+                    $('#mnuReqCertificacion').click(function (e) {
+                        goToUrl('@Url.Action("List", "RequerimientoCertificacion", new { area = "" })' + '?Accion=recseg.1');
+                    });
+                    $('#mnupendprocadm').click(function (e) {
+                        goToUrl('@Url.Action("PendientesProcesarAdminList", "Certificacion", new { area = "" })' + '?Accion=recseg.2');
+                    });
+                     $('#mnuestatusrecer').click(function (e) {
+                        goToUrl('@Url.Action("EstatusRecertificacionAdminList", "Certificacion", new { area = "" })' + '?Accion=recseg.3');
+                    });
+                    
+                    @*-----------------------------------REQUERIMIENTOS---------------------------------*@
+                    $('#mnuTorre').click(function (e) {
+                        goToUrl('@Url.Action("List", "Torre", new { area = "" })' + '?Accion=mreqtor.0');
+                    });
+
+                    $('#mnuRequerimiento').click(function (e) {
+                        goToUrl('@Url.Action("List", "Requerimiento", new { area = "Catalogos" })' + '?Accion=mreqreq.0');
+                    });
+
+                    $('#mnuProveedor').click(function (e) {
+                        goToUrl('@Url.Action("List", "Proveedor", new { area = "" })' + '?Accion=mreqprov.0');
+                    });
+
+                    $('#mnuPrefiles').click(function (e) {
+                        goToUrl('@Url.Action("List", "FlujoPerfil", new { area = "Catalogos" })'+ '?Accion=catRol.0' );
+                    });
+
+                    $('#mnuCfgSLA').click(function (e) {
+                        goToUrl('@Url.Action("Editar", "SLASolicitud", new { area = "Configuracion" })'+ '?Accion=catconfsla.1' );
+                    });
+                    
+
+
+                    $('#mnuSuperSistema').click(function (e) {
+                        goToUrl('@Url.Action("List", "SuperSistema", new { area = "Catalogos" })' + '?Accion=catsups.0');
+                    });
+
+                    $('#mnuMacroSistema').click(function (e) {
+                        goToUrl('@Url.Action("List", "MacroSistema", new { area = "Catalogos" })' + '?Accion=catmacs.0');
+                    });
+
+                    $('#mnuUnidadNegocioEmpresaSS').click(function (e) {
+                        goToUrl('@Url.Action("List", "UnidadNegocioEmpresaSS", new { area = "Catalogos" })' + '?Accion=catremps.0');
+                    });
+
+                    $('#mnuOMProyecto').click(function (e) {
+                        goToUrl('@Url.Action("List", "OMProyecto", new { area = "Catalogos" })' + '?Accion=catompr.0');
+                    });
+
+                    $('#mnuArea').click(function (e) {
+                        goToUrl('@Url.Action("List", "Area", new { area = "Catalogos" })' + '?Accion=catarea.0');
+                    });
+
+                    $('#mnuSubArea').click(function (e) {
+                        goToUrl('@Url.Action("List", "SubArea", new { area = "Catalogos" })' + '?Accion=catsubar.0');
+                    });
+
+                    $('#mnuSistemaSubArea').click(function (e) {
+                        goToUrl('@Url.Action("Exportar", "SistemaSubArea", new { area = "Catalogos" })' + '?Accion=catresubs.0');
+                    });
+                    $('#mnuNuevoReq').click(function (e) {
+                        goToUrl('@Url.Action("Crear", "SolicitudRequerimiento", new { area = "Procesos" })' + '?Accion=mreqreq.1');
+                    });
+
+                    $('#mnuMisPendientesReq').click(function (e) {
+                        goToUrl('@Url.Action("PendientesList", "SolicitudRequerimiento", new { area = "Procesos" })' + '?Accion=mreqreq.3');
+                    });
+
+                    $('#mnuTodosReq').click(function (e) {
+                        goToUrl('@Url.Action("List", "SolicitudRequerimiento", new { area = "Procesos" })' + '?Accion=mreqreq.5');
+                    });
+
+                    @*-----------------------------------REPORTES---------------------------------*@
+                    $('#mnuRequerimientos').click(function (e) {
+                        goToUrl('@Url.Action("Reporte", "Requerimiento", new { area = "Reportes" })' + '?Accion=mreqrep.1');
+                    });
+
+                    $('#mnuNivelesServicio').click(function (e) {
+                        goToUrl('@Url.Action("ReporteNivelesServicio", "Requerimiento", new { area = "Reportes" })' + '?Accion=mreqrep.2');
+                    });
+                    $('#mnuNivelesServicioSols').click(function (e) {
+                        goToUrl('@Url.Action("ReporteSLASolicitudes", "Solicitudes", new { area = "Reportes" })' + '?Accion=mreqrep.2');
+                    });                    
+                    $('#mnuEncuestas').click(function (e) {
+                        goToUrl('@Url.Action("Reporte", "Encuesta", new { area = "Reportes" })' + '?Accion=mreqrep.3');
+                    });
+                    $('#mnuCuentasHD').click(function (e) {
+                        goToUrl('@Url.Action("ListHD", "CatCuenta", new { area = "" })' + '?Accion=mreqrep.3');
+                    });
+
+                    $('#mnuestatussolicitudes').click(function (e) {
+                        goToUrl('@Url.Action("ReporteEstatusSolicitudes", "Solicitudes", new { area = "Reportes" })' + '?Accion=mreqrep.5');
+                    });
+                    $('#mnudispersionactivos').click(function (e) {
+                        goToUrl('@Url.Action("ReporteDispersionActivos", "Catalogos", new { area = "Reportes" })' + '?Accion=mreqrep.6');
+                    });
+                    
+                    $('#mnuestatusrecertificacion').click(function (e) {
+                        goToUrl('@Url.Action("ReporteEstatusRecertificacion", "RecertificacionRep", new { area = "Reportes" })' + '?Accion=mreqrep.7');
+                    });
+                    @*-----------------------------------ACTIVOS---------------------------------*@
+                    $('#mnuTipoActivo').click(function (e) {
+                        goToUrl('@Url.Action("List", "TipoActivo", new { area = "Catalogos" })' + '?Accion=macttipact.0');
+                    });
+
+                    $('#mnuMarca').click(function (e) {
+                        goToUrl('@Url.Action("List", "Marca", new { area = "Catalogos" })' + '?Accion=mactmarc.0');
+                    });
+
+                    $('#mnuModelo').click(function (e) {
+                        goToUrl('@Url.Action("List", "Modelo", new { area = "Catalogos" })' + '?Accion=mactmode.0');
+                    });
+
+                    $('#mnuTipoAdquisicion').click(function (e) {
+                        goToUrl('@Url.Action("List", "TipoAdquisicion", new { area = "Catalogos" })' + '?Accion=macttipadq.0');
+                    });
+
+                    $('#mnuCentrodeCosto').click(function (e) {
+                        goToUrl('@Url.Action("List", "CentrodeCosto", new { area = "" })' + '?Accion=mactcencos.0');
+                    });
+
+                    $('#mnuCentrodeCostoSAP').click(function (e) {
+                        goToUrl('@Url.Action("List", "CentrodeCostoSAP", new { area = "Catalogos" })' + '?Accion=mactcencos.0');
+                    });
+
+                    $('#mnuUnidadNegocio').click(function (e) {
+                        goToUrl('@Url.Action("List", "UnidadNegocio", new { area = "" })' + '?Accion=mactunidneg.0');
+                    });
+
+                    $('#mnuAnexo').click(function (e) {
+                        goToUrl('@Url.Action("List", "Anexo", new { area = "" })' + '?Accion=mactanexo.0');
+                    });  
+
+                    @* $('#mnuEstatusAsignacion').click(function (e) {
+                        goToUrl('@Url.Action("List", "EstatusAsignacion", new { area = "Catalogos" })' + '?Accion=catreq.0');
+                    });*@
+
+                    $('#mnuBodegasUbicaciones').click(function (e) {
+                        goToUrl('@Url.Action("List", "BodegaUbicacion", new { area = "Catalogos" })' + '?Accion=mactbod.0');
+                    });
+
+                    $('#mnuMotivoTrasladoActivo').click(function (e) {
+                        goToUrl('@Url.Action("List", "MotivoTrasladoActivo", new { area = "Catalogos" })' + '?Accion=mactmottras.0');
+                    });      
+                    
+                    $('#mnuActivo').click(function (e) {
+                        goToUrl('@Url.Action("List", "Activo", new { area = "Catalogos" })' + '?Accion=mactactivo.0');
+                    });
+                    @*-----------------------------------CONTROL DE RIESGOS---------------------------------*@
+                    $('#mnuIndiceConflicto').click(function (e) {
+                        goToUrl('@Url.Action("List", "IndiceConflictos", new { area = "ControlRiesgos" })' + '?Accion=catsups.0');
+                    });     
+                    $('#mnuRevisionConflictos').click(function (e) {
+                        goToUrl('@Url.Action("Crear", "RevisionConflictos", new { area = "ControlRiesgos" })' + '?Accion=catsups.0');
+                    });     
+                    $('#mnuBusquedaConflicto').click(function (e) {
+                        goToUrl('@Url.Action("BusquedaList", "IndiceConflictos", new { area = "ControlRiesgos" })' + '?Accion=');
+                    });    
+                    $('#mnuConflictoEmpleadoReporte').click(function (e) {
+                        goToUrl('@Url.Action("Reporte", "ConflictoEmpleado", new { area = "ControlRiesgos" })' + '?Accion=catsups.0');
+                    });
+                    
+                    @*-----------------------------------REVISION DE ACTIVOS---------------------------------*@
+                    $('#mnuPlantillaResponsiva').click(function (e) {
+                        goToUrl('@Url.Action("List", "PlantillaResponsiva", new { area = "RecertificacionActivos" })' + '?Accion=mactactivo.0');
+                    }); 
+                    $('#mnuActivoResponsiva').click(function (e) {
+                        goToUrl('@Url.Action("List", "Responsiva", new { area = "RecertificacionActivos" })' + '?Accion=mactactivo.0');
+                    });  
+                    $('#mnuMisActivos').click(function (e) {
+                        goToUrl('@Url.Action("MisActivosList", "Responsiva", new { area = "RecertificacionActivos" })' + '?Accion=mactactivo.0');
+                    });    
+                    $('#mnuSolicitudesRevision').click(function (e) {
+                        goToUrl('@Url.Action("SolicitudResponsivaList", "Responsiva", new { area = "RecertificacionActivos" })' + '?Accion=mactactivo.0');
+                    });
+                    $('#mnuCertificacionActivo').click(function (e) {
+                        goToUrl('@Url.Action("List", "CertificacionActivos", new { area = "RecertificacionActivos" })' + '?Accion=mactactivo.0');
+                    });
+                    $('#mnuCertificaActivosPendientes').click(function (e) {
+                        goToUrl('@Url.Action("PendientesLista", "CertificacionActivos", new { area = "RecertificacionActivos" })' + '?Accion=mactactivo.0');
+                    });
+                    $('#mnuCertificaActivosPendientesAdmon').click(function (e) {
+                        goToUrl('@Url.Action("PendientesAdmonLista", "CertificacionActivos", new { area = "RecertificacionActivos" })' + '?Accion=mactactivo.0');
+                    });
+                    $('#mnuCertificaActivosRevisados').click(function (e) {
+                        goToUrl('@Url.Action("RevisadosLista", "CertificacionActivos", new { area = "RecertificacionActivos" })' + '?Accion=mactactivo.0');
+                    });
+                    $('#mnuResumenRevision').click(function (e) {
+                        goToUrl('@Url.Action("ReporteResumenRevision", "Reportes", new { area = "RecertificacionActivos" })' );
+                    });
+
+                    @*-----------------------------------PAQUETES---------------------------------*@
+                     $('#mnupaquetebienvenida').click(function (e) {
+                        goToUrl('@Url.Action("List", "PaqueteBienvenida", new { area = "Paquetes" })'  + '?Accion=catpaquetes.2');
+                    }); 
+                    $('#mnupaquetedespedida').click(function (e) {
+                        goToUrl('@Url.Action("List", "PaqueteDespedida", new { area = "Paquetes" })' + '?Accion=catpaquetes.3' );
+                    });
+
+                    @*-----------------------------------INTEGRACION CORREOS----------------------*@
+                     $('#mnuCorreosInterfaces').click(function (e) {
+                        goToUrl('@Url.Action("List", "Interface", new { area = "Correos" })' );
+                    }); 
+                    $('#mnuCorreosConfiguraciones').click(function (e) {
+                        goToUrl('@Url.Action("List", "Configuracion", new { area = "Correos" })' );
+                    });
+                    
+                    @*-----------------------------CONSULTA CORREOS----------------------*@
+                     $('#mnuCorreosTodos').click(function (e) {
+                        goToUrl('@Url.Action("List", "Entrada", new { area = "Correos" })' );
+                    });
+                    $('#mnuCorreosNoIdentificados').click(function (e) {
+                        goToUrl('@Url.Action("NoIdentificado", "Entrada", new { area = "Correos" })' );
+                    });
+                    $('#mnuCorreosAltasPendientes').click(function (e) {
+                        goToUrl('@Url.Action("AltaPendiente", "Entrada", new { area = "Correos" })' );
+                    });
+                    $('#mnuCorreosBajasPendientes').click(function (e) {
+                        goToUrl('@Url.Action("BajaPendiente", "Entrada", new { area = "Correos" })' );
+                    });
+                    $('#mnuCorreosError').click(function (e) {
+                        goToUrl('@Url.Action("Error", "Entrada", new { area = "Correos" })' );
+                    });
+                }
+
+                var obj = {};
+                obj.ct = 3; // La categoría 3
+                var con = new Contenedor();
+                
+                $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+                    var originalComplete = options.complete;
+                    options.complete = function (jqXHR, reqs) {
+                        
+                        if (jqXHR.getResponseHeader('NOT_LOGGED') == '1') {
+                            loading();
+                            window.location.reload();
+                        }
+
+                        if (options.dataType != 'json' || options.validaAcciones) {
+                            isPetitionAPage = true;
+                        }
+
+                        if (originalComplete != null) {
+                            originalComplete(jqXHR, reqs);
+                        }
+                    };
+                });
+
+                $(document).ajaxStop(function () {
+                    if (isPetitionAPage) {
+                        if (accionesNegadas != null) {
+                            $(accionesNegadas).each(function () {
+                                $('*[ac="' + this.toString() + '"]').hide();
+                                $('*[ac="' + this.toString() + '"]').remove();
+                            });
+                            $('div [class=menuSection]').each(function (){
+                                var span = $(this).find('span');
+                                if(span.length==0){
+                                    $(this).remove();
+                                }
+                            });
+                        }
+                    }
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetAccionesNegadas", "Cuenta", new { area = "" })',
+                    async: false,
+                    dataType: 'json',
+                    validaAcciones: true,
+                    success: function (data) { accionesNegadas = data; }
+                });
+
+                $('#dvMenuPanel').show();
+            });
+   
+        </script>
+
+    }
+    

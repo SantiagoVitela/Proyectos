@@ -1,0 +1,73 @@
+﻿@{
+    Layout = null;
+}
+
+
+<div id="dvArticuloListForm"   style="display:none;">
+    <div class="contenttituloandtoolbar">
+            <div class="tituloformulario">
+            <label>Articulos</label>
+            </div>
+        <div class="toolbar">
+            <div class="boton">
+                <input type="button" data-field="btnNuevo" value="Nuevo" />
+            </div>
+            <div class="boton">
+                <input type="button" data-field="btnEditar" value="Editar" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="fixcontenttituloandtoolbar">
+    </div>
+
+    <div class="secciondoc">
+        @*<div class="top"></div>*@
+        <div class="content">
+            <div id="gridArticuloList" class="gridPaginado">
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<script type="text/javascript">
+
+    var gridArticulo = null;
+
+    var ArticuloListForm = function (id) {
+        if (id != null && id != ''){
+            this.id = id;
+        }
+    }
+
+    ArticuloListForm.prototype = new Contenedor("dvArticuloListForm");
+
+    ArticuloListForm.prototype.inicializa = function () {
+        var self = this;
+
+        gridArticulo = new lazygrid('gridArticulo', 'gridArticuloList', '@Url.Action("GetArticuloGrid", "Articulo")' + '?xmlgrid=Catalogos/ArticuloList');
+        gridArticulo.dobleClick = function () {
+            var obj = gridArticulo.selectedItem;
+            goToUrl('@Url.Action("Editar", "Articulo")' + '/' + obj.Clave);
+        }
+
+        gridArticulo.mostrar();
+
+        self.addEventProperty('btnNuevo', 'click', function (e) {
+            goToUrl('@Url.Action("Crear", "Articulo")');
+        });
+
+        self.addEventProperty('btnEditar', 'click', function (e) {
+            var obj = gridArticulo.selectedItem;
+            if (obj == null) {
+                dialog('error', 'Directorio Activo', 'Seleccione un elemento de la lista');
+                return;
+            }
+            goToUrl('@Url.Action("Editar", "Articulo")' + '/' + obj.Clave);
+        });
+
+        $('#' + self.id).show();
+    }
+
+</script>

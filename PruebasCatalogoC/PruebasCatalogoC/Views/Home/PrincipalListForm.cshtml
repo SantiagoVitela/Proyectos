@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+
+<div id="dvPrincipalListForm" style="display:none;">
+    <div class="contenttituloandtoolbar">
+            <div class="tituloformulario">
+            <label>Vendimia</label>
+            
+            </div>
+    </div>
+    <br />
+    <div class="fixcontenttituloandtoolbar">
+    </div>
+
+    <div class="frame">
+        <div class="tituloframe"></div>
+        <div class="contenidoframe">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var PrincipalListForm = function (id) {
+        if (id != null && id != '')
+            this.id = id;
+    }
+    PrincipalListForm.prototype = new Contenedor("dvPrincipalListForm");
+
+    PrincipalListForm.prototype.inicializa = function () {
+        var self = this;
+        $('#' + self.id).show();
+    }
+
+</script>

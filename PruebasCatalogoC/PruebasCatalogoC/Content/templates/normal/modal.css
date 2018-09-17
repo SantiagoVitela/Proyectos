@@ -1,0 +1,48 @@
+﻿
+/**********************************************************/
+/**    Clases para la simulación de ventanas modales     **/
+.bgtransparentBlanco{
+    position:fixed;
+    left:0;
+    top:0;
+    /*width:100%;
+    height:100%;*/
+    background-color:#000;
+    -khtml-opacity: 0.5;
+    opacity:0.5;      
+    filter:alpha(opacity=50); /*IE7 */
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";   /* IE8    */
+    z-index:999;
+}
+
+.bgmodal{      
+	position:absolute;        
+    font-family:arial;
+    font-size:1em;        
+    overflow:auto;
+    background-color: white;
+    border-radius: 10px; 
+  	-moz-border-radius: 10px;
+  	-webkit-border-radius: 10px;
+  	-khtml-border-radius: 10px;  		
+  	border-radius: 10px;
+	margin: 10px 0 10px 0; 	    
+	margin-left:auto;
+    margin-right:auto;
+    /*z-index:100; */
+}
+
+.showPage 
+{
+    width:100%;
+}
+
+.hidePage 
+{
+    display:none;width:100%;
+}
+
+tbody.showPage tr td
+{
+    padding-left:5px;
+}

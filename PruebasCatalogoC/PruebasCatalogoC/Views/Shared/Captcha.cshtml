@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+@using BotDetect.Web.UI.Mvc;
+@using BaseCF.Util;
+<head>
+    <link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl"
+      rel="stylesheet" type="text/css" />
+
+      <style type="text/css">
+          #CaptchaCode
+          {
+              width:250px;
+          }      
+      </style>
+</head>
+
+<div>
+
+    <div style="font-weight: bold;padding-bottom: 15px;position: relative;text-align: left;top: 4px;">
+        Escriba en el recuadro la palabra de la imagen
+    </div>
+
+    @{ MvcCaptcha sampleCaptcha = CaptchaHelper.GetSampleCaptcha("CaptchaControl"); }
+    @Html.Captcha(sampleCaptcha)
+
+    <div style="text-align:left;">
+        @Html.TextBox("CaptchaCode")
+    </div>
+</div>

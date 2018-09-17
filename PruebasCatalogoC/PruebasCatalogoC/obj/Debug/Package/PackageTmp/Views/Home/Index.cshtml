@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Página principal";
+}
+@model PruebasCatalogoC.Vo.ClientesVO
+<div class="bar">
+    <a id="new" class="button" href="javascript:void(0);">Nuevo Cliente</a>
+</div>
+<table>
+    <thead>
+        <tr>
+            
+            <th>Nombre</th>            
+            <th>Fecha de Nacimiento</th>
+            <th>Dirección</th>
+            <th>Estudio realizar</th>
+            <th>Editar</th>
+            <th>Borrar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var c in @Model.ClienteList)
+        {        
+            <tr>
+                <td>@c.Nombre @c.ApPaterno @c.ApMaterno</td>
+                <td>@c.FechaNac.ToString("dd/MM/yyyy")</td>                
+                <td>@c.Calle @c.colonia @c.NumExt @c.Ciudad</td>
+                <td>@c.EstudioRealizarTxt</td>
+                <td><a class="edit" href="javascript:void(0);" data-id="@c.Id">Editar</a></td>
+                <td><a class="delete" href="javascript:void(0);" data-id="@c.Id">Borrar</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+    var ClienteListForm = function () {
+
+    }
+
+    ClienteListForm.prototype.init = function () {
+        var self = this;
+
+        $("a[class=edit]").click(function () {
+            var id = $(this).attr('data-id');
+            self.Editar(id);
+        });
+        $("a[class=delete]").click(function () {
+            var id = $(this).attr('data-id');
+            self.Eliminar(id);
+        });
+
+        $("#new").click(function () {
+            var id = $(this).attr('data-id');
+            self.Editar(0);
+        });
+
+    }
+    ClienteListForm.prototype.Editar = function (id) {
+        var self = this;
+        var resp = doHTMLRequest('@Url.Action("Clientes", "Home")', { 'id': id});
+        $('div#content').html(resp);
+                
+    }
+
+    ClienteListForm.prototype.Eliminar = function (id) {
+        var self = this;
+        var obj = {};
+        obj.Id = id;
+
+        dialog('decisivo2', 'Eliminar', ' ¿Seguro desea eliminar el registro?', function () {
+            var resp = doJsonRequest('@Url.Action("EliminarCliente", "Home") ', obj);
+
+            location.reload();
+        });
+    }
+
+    var forma = new ClienteListForm();
+    forma.init();
+    </script>

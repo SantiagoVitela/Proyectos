@@ -1,0 +1,118 @@
+﻿body
+{
+	background:#B5D8EC;
+}
+*
+{
+	/*font-family:Arial;*/
+	font-family:"Open Sans", sans-serif;
+}
+form
+{
+	margin:0 auto;
+	width:450px;
+}
+.loginform
+{
+	width:400px;
+	padding:25px;
+	background:#2A86C7;
+	min-height:550px;
+	border-radius:10px;
+	display:inline-block;
+	box-shadow:9px 0px 14px -6px;
+}
+h1
+{
+	border-bottom:2px solid #fff;
+	margin-bottom:5px;
+	color:#fff;
+	font-size:60px;
+}
+.logo
+{
+	border-radius: 86px;
+    box-shadow: 0 9px 18px 0 #555;
+    height: 100px;
+    margin: 0 auto;
+    width: 100px;
+    position:relative;
+    z-index:10;
+}
+.loginsection
+{
+    background: #F0F0F0 none repeat scroll 0 0;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    box-shadow: 0 12px 14px -5px #333;
+    margin: 0 auto;
+    padding: 80px 30px 0px;
+    width: 230px;
+    position:relative;
+    top:-50px;
+}
+.inputcontentlogin
+{
+	width:100%;
+	margin:10px 0px;
+}
+input[type="text"], input[type="password"]
+{
+	background:#707686;
+	color:#eee;
+	font-weight:bold;
+	/*font-family:Courier;*/
+	/*font-family:"Open Sans", sans-serif;*/
+	font-size:18px;
+}
+#btnlogin
+{
+    background: transparent none repeat scroll 0 0;
+    border: medium none;
+    color: #334559;
+    /*font-family: Courier;*/
+    /*font-family:"Open Sans", sans-serif;*/
+    font-size: 24px;
+    font-weight: bold;
+}
+.dvcent
+{
+    position: relative;
+    text-align: center;
+    top: -30px;
+    width: 100%;
+}
+#aRecuperarPassword
+{
+	color:#fff;
+	text-decoration:none;
+}
+.plecalat
+{
+    display: inline-block;
+    left: 10px;
+    position: relative;
+    top: -30px;
+}
+.plecablanca
+{
+    display: inline-block;
+    position: relative;
+    overflow:hidden;
+    width:100%;
+    top:-40px;
+}
+.cuadr
+{
+	float: right;
+    position: relative;
+    top: -42px;
+    width: 77px;
+}
+.logod4
+{
+    float: right;
+    position: relative;
+    right: 0;
+    top: 20px;
+}

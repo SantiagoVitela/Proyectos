@@ -1,0 +1,235 @@
+﻿@{
+    Layout = null;
+}
+@{
+    PruebasCatalogoC.Vo.SessionContextVO ses = null;
+    var o = Session["sessionContext"];
+    if(o!=null){
+        ses = (PruebasCatalogoC.Vo.SessionContextVO)o;
+    }else{
+        ses = new PruebasCatalogoC.Vo.SessionContextVO();
+    }
+}
+<div id="dvDepartamentoForm">
+
+    <div class="contenttituloandtoolbar">
+        <div class="tituloformulario">
+            <label>@ses.L("Catalogos.Catalogos.Organizacional.Departamentos.Titulo")</label>
+        </div>
+
+        <div class="toolbar">
+            <div class="boton">
+                <input type="button" data-field="btnRegresar" value="@ses.L("Regresar")" />
+            </div>
+            <div class="boton">
+                <input type="button" ac="catdep.2" data-field="btnCrearDepartamento" value="@ses.L("GuardarSalir")" />
+            </div>
+            <div class="boton">
+                <input type="button" ac="catdep.2" data-field="btnCrearYNuevo" value="@ses.L("GuardarNuevo")" />
+            </div>
+            <div class="boton">
+                <input type="button" ac="catdep.2" data-field="btnActualizar" value="@ses.L("Guardar")" />
+            </div>
+        </div>
+    </div>
+    <div class="fixcontenttituloandtoolbar">
+    </div>
+        @*<br />
+        <label class="tituloformulario">Informaci&oacute;n del Departamento</label>*@
+        <br />
+        <span class="spaninfo">@ses.L("LeyendaCamposRequeridos")</span>
+        <br />
+
+    <!-- 
+        Fix para ie (qué milagro) 
+        Es necesario encerrar todos los controles input en un tag "form" para que al presionar enter sobre un de ellos
+        no se ejecute el evento click del primer botón del diálogo modal.
+     -->
+     <form class="frame">
+     <div class="secciondoc seccioncat">
+        <div class="top">
+            @ses.L("Catalogos.Catalogos.Organizacional.Departamentos.DatosCatalogo")
+        </div>
+        <div class="content">
+            <div class="inputcontent">
+                <div class="dvlabel col-2">
+                    @ses.L("Catalogos.Catalogos.Organizacional.Departamentos.DatosCatalogo.Clave")
+                </div>
+                <div class="dvinput col">
+                    <input id="Clave" data-field="Clave" title="Clave del Departamento" type="text" readonly />
+                </div>
+            </div>
+            <div class="inputcontent">
+                <div class="dvlabel col-2">
+                    <span class="requerido">*</span>@ses.L("Catalogos.Catalogos.Organizacional.Departamentos.DatosCatalogo.Descripcion")
+                </div>
+                <div class="dvinput col col-8">
+                    <input id="Descripcion" data-field="Descripcion" value="" title="Descripcion del Departamento" type="text" maxlength="100" />
+                </div>
+            </div>
+            <div class="inputcontent">
+                <div class="dvlabel col-2">
+                    @ses.L("Catalogos.Catalogos.Organizacional.Departamentos.DatosCatalogo.Estatus")
+                </div>
+                <div class="dvinput col col-8">
+                    <label> <input name="Estatus" data-field="Estatus" value="1" type="radio"/>&nbsp; Activo</label>&emsp;
+
+                    <label> <input name="Estatus" data-field="Estatus" value="0" type="radio"/>&nbsp; Inactivo</label>
+                </div>
+            </div>
+        </div>
+        <div class="clearing"></div>
+    </div>
+    <br />
+    <div class="secciondoc">
+        <div class="top">
+            @ses.L("Catalogos.Catalogos.Organizacional.Departamentos.InfoDepto")
+        </div>
+        <div class="content">
+            <div class="inputcontent">
+                <div class="dvlabel col-2">
+                    <span class="requerido">*</span>@ses.L("Catalogos.Catalogos.Organizacional.Departamentos.InfoDepto.ClaveInterna")
+                </div>
+                <div class="dvinput col col-8">
+                    <input id="ClaveInterna" data-field="ClaveInterna" value="" title="Clave Interna" type="text" maxlength="30"/>
+                </div>
+            </div>
+            <div class="inputcontent">
+                <div class="dvlabel col-2">
+                    @ses.L("Catalogos.Catalogos.Organizacional.Departamentos.InfoDepto.EsDeSistemas")
+                </div>
+                <div class="dvinput col col-8">
+                    <label> <input name="BSistemas" data-field="BSistemas" value="1" type="radio"/> &nbsp;@ses.L("EtiquetaSi")</label>&emsp;
+
+                    <label> <input name="BSistemas" data-field="BSistemas" value="0" type="radio"/> &nbsp;@ses.L("EtiquetaSi")</label>
+                </div>
+            </div>
+            <div class="inputcontent">
+                <div class="dvlabel col-2">
+                    @ses.L("Catalogos.Catalogos.Organizacional.Departamentos.InfoDepto.Subdireccion")
+                </div>
+                <div class="dvinput col col-8">
+                    <select id="cmbSubdireccion" data-field="SubDireccion">
+                    <option value="">-- Seleccione --</option>
+                </select> 
+                </div>
+            </div>
+        </div>
+        <div class="clearing"></div>
+    </form>
+</div>
+<script type="text/javascript">
+
+    var DepartamentoForm = function () {
+    }
+    DepartamentoForm.prototype = new Contenedor("dvDepartamentoForm");
+
+    DepartamentoForm.prototype.inicializa = function () {
+        var self = this;
+
+        self.leerPropiedadComo('BSistemas', 'valor');
+        self.leerPropiedadComo('Estatus', 'valor');
+        self.addEventProperty('btnCrearDepartamento', 'click', function () {
+            self.crear();
+        });
+        self.addEventProperty('btnCrearYNuevo', 'click', function () {
+            self.crear(true);
+        });
+        self.addEventProperty('btnRegresar', 'click', function () {
+            self.regresar();
+        });
+        self.addEventProperty('btnActualizar', 'click', function () {
+            self.actualizar();
+        });
+
+
+        self.preparePropertyAsCombo('SubDireccion', '@Url.Action("GetSubDireccionPorEstatusList","SubDireccion")'+ '?estatus=1', ["Clave", "Descripcion"]);
+        self.fillPropertyCombo('SubDireccion');
+
+        self.addRules();
+
+    }
+
+
+    DepartamentoForm.prototype.addRules = function () {
+        var self = this;
+        self.addValidationRule('Descripcion', 'required', null, 'El campo descripcion es requerido.');
+        self.addValidationRule('ClaveInterna', 'required', null, 'El campo clave interna es requerido.');
+    }
+
+    DepartamentoForm.prototype.crear = function (nuevo) {
+        var self = this;
+
+        self.actionSuccess = function (data) {
+            if (nuevo == true) {
+                if (data.Clave == undefined) {
+                    dialog('error', 'Error', data[0].MensajeUsuario);
+
+                } else {
+                    self.activaModoNuevo();
+                }
+                
+            } else {
+                if (data.Clave == undefined) {
+                    dialog('error', 'Error', data[0].MensajeUsuario);
+
+                } else {
+                    self.regresar();
+
+                }
+            }
+        }
+
+        self.doAction('@Url.Action("AddDepartamento", "Departamento")');
+    }
+
+    DepartamentoForm.prototype.regresar = function () {
+        var self = this;
+        goToUrl('@Url.Action("List", "Departamento")');
+    }
+
+    DepartamentoForm.prototype.actualizar = function () {
+        var self = this;
+
+        self.actionSuccess = function (data) {
+            if (data.Clave == undefined) {
+                dialog('error', 'Error', data[0].MensajeUsuario);
+
+            } else {
+                self.regresar();
+
+            }
+        }
+
+        self.doAction('@Url.Action("UpdateDepartamento", "Departamento")');
+    }
+
+    DepartamentoForm.prototype.activaModoNuevo = function () {
+        var self = this;
+        self.clearForm();
+        self.clearErrors();
+
+        // Se muestran los botones de crear
+        self.styleProperty('btnCrearDepartamento', 'display', '');
+        self.styleProperty('btnCrearYNuevo', 'display', '');
+        self.styleProperty('btnActualizar', 'display', 'none');
+        self.setProperty('BSistemas', '0');
+        self.setProperty('Estatus', '1');
+    }
+
+    DepartamentoForm.prototype.activaModoEdicion = function (clave) {
+        var self = this;
+
+        // Se muestra el botón Actualizar
+        self.styleProperty('btnCrearDepartamento', 'display', 'none');
+        self.styleProperty('btnCrearYNuevo', 'display', 'none');
+        self.styleProperty('btnActualizar', 'display', '');
+
+        var obj = self.doJsonRequest('@Url.Action("GetDepartamentoPorClave", "Departamento")', { 'clave': clave });
+        if (obj.ErrorNumber != undefined) {
+            dialog('error', 'Departamento', obj.ErrorDesc);
+        } else {
+            self.setJSON(obj);
+        }
+    }
+</script>

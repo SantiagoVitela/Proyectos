@@ -1,0 +1,372 @@
+﻿@{
+    string xtoken = null;
+    var o1 = Session["sessionContext"];
+    if (o1 != null)
+    {
+        var ses1 = (PruebasCatalogoC.Vo.SessionContextVO)o1;
+        //xtoken = ses1.Token;
+    }
+} 
+<!DOCTYPE html>
+<html>
+<head id="HDAD">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link rel="icon" type="image/png" href="@Url.Content("~/Content/images/CF.png")" />
+    <link rel="shortcut icon" type="image/x-icon" href="@Url.Content("~/Content/images/CF.ico")" />
+
+    @{string nV = "20180702.2";}
+
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/templates/normal/algoriaElementsBox.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/site.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/jquery/jquery-ui.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/menuprincipal.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/formulario.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/modal.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/grid.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/toolbar.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    @*<link href="@Url.Content("~/Content/templates/normal/cfdform.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />*@
+    <link href="@Url.Content("~/Content/templates/normal/algoriaDialog.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/algoriaAutocomplete.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/jquery-ui-timepicker-addon.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    
+    <link href="@Url.Content("~/Content/templates/normal/Listas.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    
+    <link href="@Url.Content("~/Content/templates/normal/algoriaNotify.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/menuLateral.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/cfdgrid.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/jquery.qtip.min.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    @*<link href="@Url.Content("~/Content/multiselect/css/jquery.multiselect.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />*@
+    <link href="@Url.Content("~/Content/fonts/css/font-awesome.min.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    
+    <script src="@Url.Content("~/Scripts/jquery-1.8.2.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.10.1.custom.min.js" + "?v=" + nV)" type="text/javascript"></script>
+@*    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.21.custom.min.js" + "?v=" + nV)" type="text/javascript"></script>*@
+    @*<script src="@Url.Content("~/Scripts/GlobalConfiguration.js" + "?v=" + nV)" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/ajaxfileupload.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaFormulario.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaVentana.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaModal.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaCombo.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaAutocomplete.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/stringBuilder.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Lista.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.funciones.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaFormatos.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaCalendar.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaTextBox.js" + "?v=" + nV)" type="text/javascript"></script>@*
+    <script src="@Url.Content("~/Scripts/jquery-ui.datepicker-es.js" + "?v=" + nV)" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/jquery.peticion.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.lazyloadgrid.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.numerictextbox.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaSubmit.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaDialog.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaUploader.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaNotify.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.qtip.min.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/solicitudCuentaScript.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaElementsBox.js" + "?v=" + nV)" type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Content/multiselect/js/jquery.multiselect.js" + "?v=" + nV)" type="text/javascript"></script>*@
+    
+    <link href="@Url.Content("~/Content/templates/normal/jquery.bonsai.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery.qubit.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.bonsai.js" + "?v=" + nV)" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.easing.1.3.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.nicescroll.min.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.nicescroll.plus.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-paged-scroll.min.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/funcionesIE8.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ckeditor.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/adapterCkeditor.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/funcionesExtras.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/multiselect/js/jquery.multiselect.js" + "?v=" + nV)" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content//multiselect/css/jquery.multiselect.css" + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-ui-timepicker-addon.js" + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/timepicker/jquery.mousewheel.js" + "?v=" + nV)" type="text/javascript"></script>@*
+    <script src="@Url.Content("~/Scripts/timepicker/jquery.timepickerinputmask.min.js" + "?v=" + nV)" type="text/javascript"></script>*@
+
+    <script type="text/javascript">
+
+        // Variable de alcance global..
+        // Está disponible para toda la aplicación
+        var urlMain = '@Url.Content("~")';
+        urlMain = urlMain.substring(0, urlMain.length - 1);
+
+        xtk = '@xtoken';
+        //console.log('layout xtk: ' + xtk);
+
+    </script>
+
+</head>
+
+<body class="body_cont">
+    <input type="hidden" id="txtUrlHelper" value="@Url.Action("GetHelp", "Base", new { area = "" })" />
+
+    @{
+        var logged = "";//Session["logged"];
+    }
+    
+@{
+    PruebasCatalogoC.Vo.SessionContextVO ses = null;
+    var o = Session["sessionContext"];
+    if(o!=null){
+        ses = (PruebasCatalogoC.Vo.SessionContextVO)o;
+    }else{
+        ses = new PruebasCatalogoC.Vo.SessionContextVO();
+    }
+}
+    <div id="header">
+
+        <div id="dvLogo">
+            <img src="@Url.Content("~/" + @ViewBag.Ruta + "/imagenes/needit/logoapp_pri.png")" alt="" border="0" />
+        </div>
+
+        @if (logged != null)
+        {
+            @RenderPage("_MenuHeader.cshtml", (ViewBag.TipoVista ?? PruebasCatalogoC.Vo.VistaSistema.Aplicacion), (ViewBag.TipoMenu ?? PruebasCatalogoC.Vo.MenuSistema.Ninguno), (ViewBag.TipoMenuConfiguracion ?? PruebasCatalogoC.Vo.MenuConfiguracion.Ninguno))
+        }
+            
+    </div>
+    <div id="dvHeaderLine"></div>
+
+    @if (logged == null)
+    {
+        // Menú del sitio web
+        @*@RenderPage("_Menu.cshtml")*@
+    }
+
+    @if (logged != null)
+    {
+        <div id="dvMainContener">
+        
+            <div id="seclateralizquierdo">
+             <div id="contenidolateralizquierdo">
+            
+                <div id="fichausuario">
+
+                    <div class="fichausuariosec">
+                        <div id="dvImageSocioLog" style="display:none;">
+                            <img src="@Url.Content("~/Content/templates/normal/imagenes/needit/logoemp_pri.png")" alt="" border="0" />
+                        </div>
+                    </div>
+                    
+                </div>
+
+                @*<div id="dvDlgRegLoginForm" style="display:none;">
+                    @Html.Action("ReLogin", "Cuenta", new { area = "" })
+                </div>*@
+
+                <script type="text/javascript">
+                    // Imagen del emisor seleccionado
+                    var cont = new Contenedor();
+                    
+                    //var d = cont.doHtmlRequest('@Url.Action("GetLogoEmpresaSelB64", "Empresa", new { area = "" })', null, false);
+                    $('#dvImageSocioLog').css('background-image', 'url("@Url.Content("~/" + @ViewBag.Ruta + "/imagenes/needit/logoemp_pri.png")")');
+                    $('#dvImageSocioLog').show();
+
+                    $('#spnMisTimbres').click(function () {
+                        goToUrl('@Url.Action("Resumen", "Paquetes", new { area = "" })');
+                    });
+                    $('#spnMisDatos').click(function () {
+                        goToUrl('@Url.Action("Guardar", "SocioFacturar", new { area = "" })');
+                    });
+                    
+                    var changePwdForm = null;
+                    var ventanaChangePwd = null;
+                    function changePassword() {
+                        if (ventanaChangePwd == null) {
+                            ventanaChangePwd = new AlgoriaVentana();
+                            ventanaChangePwd.applyWindowAppearance = false;
+                            ventanaChangePwd.loadAsDialog('', '@Url.Action("ChangePassword", "Cuenta", new { area = "" })');
+
+                            try{
+                                changePwdForm = new CambiarPasswordForm();
+                                changePwdForm.actionSuccess = function (data) {
+                                    ventanaChangePwd.closeDialog();
+                                };
+                                changePwdForm.salir = function () {
+                                    ventanaChangePwd.closeDialog();
+                                };
+                                changePwdForm.inicializa();
+                            }catch(err){
+                                ventanaChangePwd.dispose();
+                                ventanaChangePwd = null;
+                                changePwdForm = null;
+                            }
+                        }
+
+                        dialogOptions = { width: 450, height: 250 };
+                        ventanaChangePwd.openDialog('Cambio de contraseña', dialogOptions);
+                        changePwdForm.activaModoNuevo();
+                    }
+
+                    // Programar la pantalla de Relogin en caso que la sesión expire
+                    var reLoginModal = null;
+                    var esteReloginForm = null;
+                    function reLogin() {
+
+
+                        if(reLoginModal!=null){
+                            reLoginModal.close();
+                            reLoginModal = null;
+                            esteReloginForm = null;
+                        }
+
+                        var html = $('#dvDlgRegLoginForm').html();
+
+                        dialogOptions = { width: 450, height: 300 };
+                        reLoginModal = new Modal('La sesión ha expirado', 'dvDlgRegLoginForm', dialogOptions);
+                        reLoginModal.close(function(){
+                            $('#dvDlgRegLoginForm').html(html);
+                        });
+                        reLoginModal.open();
+
+                        if (esteReloginForm == null) {
+                            esteReloginForm = new ReLoginForm();
+                            esteReloginForm.actionSuccess = function (data) {
+                                aNotify.show('success', 'Su sesión ha sido restaurada correctamente.<br/>Ahora puede continuar.','center-center');
+                                reLoginModal.close();
+                            }
+                            esteReloginForm.actionError = function (data) {
+                                aNotify.show('error', 'No se puede restaurar su sesión.<br/>Verifique la contraseña.');
+                            }
+                            esteReloginForm.inicializa();
+                        }
+                    }
+                </script>
+
+                <div id="menu" style="width:100%;">
+                   @RenderPage("_MenuPanel.cshtml", (ViewBag.TipoVista ?? PruebasCatalogoC.Vo.VistaSistema.Aplicacion), (ViewBag.TipoMenu ?? PruebasCatalogoC.Vo.MenuSistema.Ninguno), (ViewBag.TipoMenuConfiguracion ?? PruebasCatalogoC.Vo.MenuConfiguracion.Ninguno))
+                </div>
+              </div>
+            </div>
+
+            <div id="seclateralderecho">
+                @RenderBody()
+            </div>
+            
+            <div class="clearing"></div>
+        </div>
+    }
+    else
+    {
+        <div id="sitecontent">
+            @RenderBody()
+        </div>
+    }
+
+    <div id="footer">
+        <div id="contentfooter">
+        </div>
+    </div>
+    
+</body>
+
+    <script type="text/javascript">
+
+        var ALERT_BUTTON_ACEPTAR = 'Aceptar';
+        var ALERT_BUTTON_CANCELAR = 'Cancelar';
+        var ALERT_BUTTON_NO = 'No';
+        var ALERT_BUTTON_SI = 'Si';
+        var ElementosEncontrados = 'Elementos Encontrados';
+        var MensajeHuboErrores = 'Hubo algunos errores';
+        var ErroresValidacion = 'Errores de Validacion';
+
+        function resizeMenu() {
+            var top = $("#menu").css('top').replace('px', '');
+            var hei = $(window).innerHeight();
+            $("#menu").css('height', (hei - top) + 'px');
+        }
+
+        $(document).ready(function () {
+
+            $("#menu").niceScroll({ cursorcolor: "#2b90c6" });
+            $(window).resize(function () {
+                resizeMenu();
+            });
+            resizeMenu();
+
+            maskChecksAndRadios = function () {
+
+                var selectores = [];
+                selectores.push('input[type="radio"]:not([masked])');
+                selectores.push('input[type="checkbox"]:not([masked])');
+
+                for (var i = 0; i < selectores.length; i++) {
+                    $(selectores[i]).each(function () {
+                        $(this).find('label[for]').remove();
+
+                        var id = $(this).attr('id');
+                        if (id == undefined) {
+                            id = 'chk' + Math.random();
+                            $(this).attr('id', id);
+                        }
+
+                        $('<label for="' + id + '"><span></span></label>').insertAfter(this);
+                        $(this).attr('masked', 'true');
+                    });
+                }
+            }
+
+            maskChecksAndRadios();
+
+            // Codigo para la versión 1.5+ de jQuery
+            $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+
+                var originalSuccess = options.success;
+                var originalError = options.error;
+
+                options.success = function (d, t, jqXHR) {
+                    //                    // Se revisa la sesión
+                    //                    if (jqXHR.getResponseHeader('NOT_LOGGED') == '1') {
+                    //                        reLogin();
+                    //                    }
+                    //                    else {
+                    if (jqXHR.getResponseHeader('NOT_LOGGED') != '1') {
+                        // Finalmente, si hay configurada una función complete,
+                        // entonces se ejecuta
+                        if (originalSuccess != null) {
+                            originalSuccess(d, t, jqXHR);
+                        }
+                    }
+                };
+
+                options.error = function (jqXHR, reqs) {
+                    //                    // Se revisa la sesión
+                    //                    if (jqXHR.getResponseHeader('NOT_LOGGED') == '1') {
+                    //                        reLogin();
+                    //                    }
+                    //                    else {
+                    if (jqXHR.getResponseHeader('NOT_LOGGED') != '1') {
+                        // Finalmente, si hay configurada una función complete,
+                        // entonces se ejecuta
+                        if (originalError != null) {
+                            originalError(jqXHR, reqs);
+                        }
+                    }
+                };
+
+                options.complete = function (jqXHR, reqs) {
+                    if (jqXHR.getResponseHeader('NOT_LOGGED') == '1') {
+                        //reLogin();
+                        window.location.href = '@Url.Action("Logout", "Cuenta", new { area = "" })';
+                    }
+
+                    maskChecksAndRadios();
+                }
+            });
+        });
+
+
+        function goToUrl(url) {
+            var cont = new Contenedor();
+            //var resp = cont.doJsonRequest('@Url.Action("CheckSession", "Cuenta", new { area = "" })', null, false);
+            //if (resp == "OK") {
+                window.location.href = url;
+            //}
+        }
+
+    </script>
+
+</html>

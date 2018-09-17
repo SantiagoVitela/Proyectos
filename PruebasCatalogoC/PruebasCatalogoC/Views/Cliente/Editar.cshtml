@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Cliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+   
+<div class="formulario">
+    <div class="formulariocaptura">
+        @Html.Partial("ClienteForm")
+    </div>
+    <div class="clearing"></div>
+</div>
+
+<script type="text/javascript">
+
+    var esteClienteForm = null;
+
+    $(document).ready(function () {
+        esteClienteForm = new ClienteForm();
+        esteClienteForm.inicializa();
+        esteClienteForm.activaModoEdicion('@ViewBag.Id');
+    });
+
+</script>

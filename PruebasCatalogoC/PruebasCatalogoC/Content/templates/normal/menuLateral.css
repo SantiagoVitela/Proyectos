@@ -1,0 +1,84 @@
+﻿.menuSection
+{
+    /*margin-bottom:10px;*/
+}
+        
+.menuSection .header
+{
+    display: inline-block;
+    padding: 15px 5px;
+    width: 100%;
+    /*border-top: 1px solid;*/
+    border-bottom: 1px solid #eee;
+	color:#191b18;
+	text-transform:uppercase;
+}
+.menuSection .header:hover
+{
+	cursor:pointer;
+	background:#39AE83;
+}
+.menuSection .header.closed{}
+.menuSection .header.closed:before
+{
+	font-family:'FontAwesome';
+	content: "\f104";
+	position:relative;
+	left:92%;
+}
+.menuSection .header.opened
+{
+	background:#39AE83;
+	margin:2px 0px;
+}
+.menuSection .header.opened:before
+{
+	font-family:'FontAwesome';
+	content: "\f107";
+	position:relative;
+	left:92%;
+}
+.menuSection .header.opened > label
+{
+	margin-left:-3px;
+}
+.active
+{
+	border-left:3px solid;
+}
+.menuSection .header .caption
+{
+    /*font-weight:bold;*/
+    font-size:15px;
+}
+        
+.menuSection .item
+{
+    padding:12px 12px 12px 25px;
+    width: 100%;
+    display: inline-block;
+    font-size: 0.9em;
+    color: #3B5048;
+}
+        
+.menuSection .item:hover
+{
+    cursor:pointer;
+    background-color:#f0f2f4;
+    color:#39AE83;
+}
+
+.menuSection .item.clicked
+{
+    cursor:pointer;
+    background-color:#f2f6f9;
+    color:#1181c0;
+}
+/*.menuSection .item.clicked:before
+{
+	font-family:'FontAwesome';
+	content: "\f105";
+	position:relative;
+	left:98%;
+}
+*/

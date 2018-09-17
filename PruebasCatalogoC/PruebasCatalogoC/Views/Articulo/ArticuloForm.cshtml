@@ -1,0 +1,235 @@
+﻿@{
+    Layout = null;
+}
+
+           
+<div id="dvArticuloForm" style="display: none;">
+
+    <div class="contenttituloandtoolbar">
+        <div class="tituloformulario">
+            <label>Articulo</label>
+        </div>
+
+        <div class="toolbar">
+            <div class="boton">
+                <input type="button" data-field="btnRegresar" value="Regresar" />
+            </div>
+            @*<div class="boton">
+                <input type="button" ac="mactmarc.2" data-field="btnEditar" value="Editar" />
+            </div>*@
+            <div class="boton">
+                <input type="button" ac="mactmarc.2" data-field="btnCrear" value="Guardar y Salir" />
+            </div>
+            <div class="boton">
+                <input type="button" ac="mactmarc.2" data-field="btnCrearYNuevo" value="Guardary Nuevo" />
+            </div>
+            <div class="boton">
+                <input type="button" ac="mactmarc.2" data-field="btnActualizar" value="Guardar" />
+            </div>
+        </div>
+    </div>
+    <div class="fixcontenttituloandtoolbar"></div>
+        <br />
+        <span class="spaninfo"></span>
+        <br />
+
+    <!-- 
+        Fix para ie (qué milagro) 
+        Es necesario encerrar todos los controles input en un tag "form" para que al presionar enter sobre un de ellos
+        no se ejecute el evento click del primer botón del diálogo modal.
+     -->
+    <form class="frame">
+        <div class="secciondoc seccioncat">
+            <div class="top">DatosGenerales</div>
+                <div class="content">
+                    <div class="inputcontent">
+                            <div class="dvlabel col-2">Clave</div>
+                            <div class="dvinput col">
+                                <input id="txtClave" data-field="Clave" title="Clave" type="text" readonly />
+                            </div>
+                    </div>
+                    <div class="inputcontent">
+                            <div class="dvlabel col-2">
+                                <span class="requerido">*</span>Descripción
+                            </div>
+                            <div class="dvinput col col-8">
+                                <input id="txtDescripcion" data-field="Descripcion" title="Descripcion" type="text" />
+                            </div>
+                    </div>
+                    <div class="inputcontent">
+                            <div class="dvlabel col-2">
+                                <span class="requerido">*</span>Modelo
+                            </div>
+                            <div class="dvinput col col-8">
+                                <input id="txtModelo" data-field="Modelo" title="Modelo" type="text" />
+                            </div>
+                    </div>
+                    <div class="inputcontent">
+                            <div class="dvlabel col-2">
+                               <span class="requerido">*</span>Precio
+                            </div>
+                            <div class="dvinput col col-3">
+                                <input id="txtPrecio" data-field="Precio" data-type="number,2" title="Precio" type="text" />
+                            </div>
+                    </div>
+                    <div class="inputcontent">
+                            <div class="dvlabel col-2">
+                               <span class="requerido">*</span>Existencia
+                            </div>
+                            <div class="dvinput col col-1">
+                                <input id="txtExistencia" data-field="Existencia" data-type="number" title="Existencia" type="text" />
+                            </div>
+                    </div>
+
+                </div>
+                
+            </div>
+            <div class="clearing"></div>
+        
+    </form>
+</div>
+
+<script type="text/javascript">
+
+    var ArticuloForm = function () { }
+
+    ArticuloForm.prototype = new Contenedor("dvArticuloForm");
+
+    ArticuloForm.prototype.inicializa = function () {
+        var self = this;
+
+        self.addEventProperty('btnRegresar', 'click', function () {
+            self.regresar();
+        });
+
+        self.addEventProperty('btnEditar', 'click', function () {
+            //self.activaModoEdicion(self.getProperty('Clave'));
+            goToUrl('@Url.Action("Editar", "Articulo")' + '/' + self.getProperty('Clave'));
+        });
+
+        self.addEventProperty('btnCrear', 'click', function () {
+            self.crear();
+        });
+
+        self.addEventProperty('btnCrearYNuevo', 'click', function () {
+            self.crear(true);
+        });
+
+        self.addEventProperty('btnActualizar', 'click', function () {
+            self.actualizar();
+        });
+
+        self.leerPropiedadComo('Estatus', 'valor');
+
+        self.addRules();
+    }
+
+    ArticuloForm.prototype.regresar = function () {
+        goToUrl('@Url.Action("List", "Articulo")');
+    }
+
+    ArticuloForm.prototype.crear = function (nuevo) {
+        var self = this;
+
+        self.actionSuccess = function (data) {
+            if (nuevo == true) {
+                if (data.ErrorNumber == undefined) {
+                    dialog('informativo', 'Articulo', 'El Articuloo se creó correctamente.');
+                    self.activaModoNuevo();
+                } else {
+                    dialog('error', 'Error', data[0].MensajeUsuario);
+                }
+            } else {
+                if (data.ErrorNumber == undefined) {
+                    self.regresar();
+                } else {
+                    dialog('error', 'Error', data[0].MensajeUsuario);
+                }
+            }
+        }
+
+        self.doAction('@Url.Action("CreateArticulo", "Articulo")');
+    }
+
+    ArticuloForm.prototype.actualizar = function () {
+        var self = this;
+
+        self.actionSuccess = function (data) {
+            if (data.ErrorNumber == undefined) {
+                self.regresar();
+            } else {
+                dialog('error', 'Error', data[0].MensajeUsuario);
+            }
+        }
+
+        self.doAction('@Url.Action("UpdateArticulo", "Articulo")');
+    }
+
+    ArticuloForm.prototype.addRules = function () {
+        var self = this;
+
+        self.addValidationRule('Descripcion', 'required', null, 'El campo Descripcion es requerido.');
+        self.addValidationRule('Modelo', 'required', null, 'El campo Modelo es requerido.');
+        self.addValidationRule('Precio', 'required', null, 'El campo Precio es requerido.');
+        self.addValidationRule('Existencia', 'required', null, 'El campo Existencia es requerido.');
+    }
+
+    ArticuloForm.prototype.activaModoNuevo = function () {
+        var self = this;
+
+        self.clearForm();
+        self.clearErrors();
+
+        self.styleProperty('btnEditar', 'display', 'none');
+        self.styleProperty('btnCrear', 'display', '');
+        self.styleProperty('btnCrearYNuevo', 'display', '');
+        self.styleProperty('btnActualizar', 'display', 'none');
+
+        self.setProperty('Estatus', '1');
+
+        $('#' + self.id).show();
+    }
+
+    ArticuloForm.prototype.activaModoEdicion = function (id) {
+        var self = this;
+
+        self.readonly = false;
+
+        self.styleProperty('btnEditar', 'display', 'none');
+        self.styleProperty('btnCrear', 'display', 'none');
+        self.styleProperty('btnCrearYNuevo', 'display', 'none');
+        self.styleProperty('btnActualizar', 'display', '');
+
+        self.mostrar(id);
+
+        $('#' + self.id).show();
+    }
+
+    ArticuloForm.prototype.activaModoLectura = function (id) {
+        var self = this;
+
+        self.readonly = true;
+
+        self.styleProperty('btnEditar', 'display', '');
+        self.styleProperty('btnCrear', 'display', 'none');
+        self.styleProperty('btnCrearYNuevo', 'display', 'none');
+        self.styleProperty('btnActualizar', 'display', 'none');
+
+        self.mostrar(id);
+
+        $('#' + self.id).show();
+    }
+
+    ArticuloForm.prototype.mostrar = function (id) {
+        var self = this;
+
+        var r = self.doJsonRequest('@Url.Action("GetArticulo", "Articulo")', { clave: id });
+
+        if (r.ErrorNumber == undefined) {
+            self.setJSON(r);
+        }
+        else {
+            dialog('error', 'Error', r[0].MensajeUsuario);
+        }
+    }
+</script>

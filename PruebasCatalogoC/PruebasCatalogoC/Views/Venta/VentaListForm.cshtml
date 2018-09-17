@@ -1,0 +1,60 @@
+﻿@{
+    Layout = null;
+}
+
+
+<div id="dvVentaListForm"   style="display:none;">
+    <div class="contenttituloandtoolbar">
+            <div class="tituloformulario">
+            <label>Ventas</label>
+            </div>
+        <div class="toolbar">
+            <div class="boton">
+                <input type="button" data-field="btnNuevo" value="Nueva venta" />
+            </div>            
+        </div>
+    </div>
+    <br />
+    <div class="fixcontenttituloandtoolbar">
+    </div>
+
+    <div class="secciondoc">
+        @*<div class="top"></div>*@
+        <div class="content">
+            <div id="gridVentaList" class="gridPaginado">
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<script type="text/javascript">
+
+    var gridVenta = null;
+
+    var VentaListForm = function (id) {
+        if (id != null && id != ''){
+            this.id = id;
+        }
+    }
+
+    VentaListForm.prototype = new Contenedor("dvVentaListForm");
+
+    VentaListForm.prototype.inicializa = function () {
+        var self = this;
+
+        gridVenta = new lazygrid('gridVenta', 'gridVentaList', '@Url.Action("GetVentaGrid", "Venta")' + '?xmlgrid=Catalogos/VentaList');
+        
+
+        gridVenta.mostrar();
+
+        self.addEventProperty('btnNuevo', 'click', function (e) {
+            goToUrl('@Url.Action("Crear", "Venta")');
+        });
+
+       
+
+        $('#' + self.id).show();
+    }
+
+</script>

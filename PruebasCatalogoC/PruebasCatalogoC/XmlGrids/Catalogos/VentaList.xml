@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<tabla>
+  <config>
+    <paginacion>true</paginacion>
+    <tipo>div</tipo>
+    <porPagina>10</porPagina>
+    <!--<selectMultiple>true</selectMultiple>-->
+  </config>
+  <columna>
+    <activo>true</activo>
+    <field>Folio</field>
+    <header>Folio Venta</header>
+  </columna>
+  <columna>
+    <activo>true</activo>
+    <field>Cliente</field>
+    <header>Clave cliente</header>
+    <busqueda>false</busqueda>
+  </columna>
+  <columna>
+    <activo>true</activo>
+    <field>ClienteNombre</field>
+    <header>Nombre</header>
+    <busqueda>false</busqueda>
+  </columna>
+  <columna>
+    <activo>true</activo>
+    <field>TotalT</field>
+    <header>Total</header>
+    <busqueda>false</busqueda>
+  </columna>
+  <columna>
+    <activo>true</activo>
+    <field>Fecha</field>
+    <header>Fecha</header>
+    <busqueda>false</busqueda>
+  </columna>
+</tabla>

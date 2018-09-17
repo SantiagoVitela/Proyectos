@@ -1,0 +1,24 @@
+﻿@{
+    Layout = null;
+}
+
+<div id="menucontainer">
+    <ul>
+        <li id="mnuInicio">Inicio</li>
+        <li id="mnucfdCfdi">CFD ó CFDI</li>
+        <li id="mnuPrecios">Precios</li>
+        <li id="mnuRegistrate">¡Reg&iacute;strate!</li>
+        <li id="mnuNosotros">Nosotros</li>
+        <li id="mnuContacto">Contacto</li>
+    </ul>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#mnuInicio').click(function (e) { location.href = '@Url.Action("Index","Site")'; });
+        $('#mnucfdCfdi').click(function (e) { location.href = '@Url.Action("CfdyCfdi","Site")'; });
+        $('#mnuPrecios').click(function (e) { location.href = '@Url.Action("Precios","Site")'; });
+        $('#mnuRegistrate').click(function (e) { location.href = '@Url.Action("Registro","Cuenta")'; });
+        $('#mnuNosotros').click(function (e) { location.href = '@Url.Action("Nosotros","Site")'; });
+        $('#mnuContacto').click(function (e) { location.href = '@Url.Action("Contacto","Site")'; });
+    });
+</script>

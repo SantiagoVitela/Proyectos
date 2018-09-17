@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - Pruebas Salud Digna</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        
+        
+         <script src="@Url.Content("~/Scripts/jquery.dialog.js")" type="text/javascript"></script>
+         <script src="@Url.Content("~/Scripts/jquery-1.7.1.js")" type="text/javascript"></script>
+         <script src="@Url.Content("~/Scripts/jquery-ui-1.8.20.js")" type="text/javascript"></script>
+         <script src="@Url.Content("~/Scripts/jquery-ui-1.8.20.min.js")" type="text/javascript"></script>
+         <script src="@Url.Content("~/Scripts/jquery.ajax.js")" type="text/javascript"></script>
+         <script src="@Url.Content("~/Scripts/jquery-ui.datepicker-es.js")" type="text/javascript"></script>
+         <script src="@Url.Content("~/Scripts/jquery.funciones.js")" type="text/javascript"></script>
+         <script src="@Url.Content("~/Scripts/jquery.peticion.js")" type="text/javascript"></script>
+
+
+
+        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/css/screen.css")" />
+        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/css/dialog.css")" />
+        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/css/jquery.msgdialogo.css")" />
+        <!-- incluyo mis estilos css -->        
+        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/css/style.css")" />
+        </head>
+    <body  style="background-color:Gray;">
+    <div id="content">
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title">@Html.ActionLink("su logotipo aquí", "Index", "Home")</p>
+                </div>
+                @*<div class="float-right">
+                    <section id="login">
+                        @Html.Partial("_LoginPartial")
+                    </section>
+                    <nav>
+                        <ul id="menu">
+                            <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+                        </ul>
+                    </nav>
+                </div>*@
+            </div>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET MVC</p>
+                </div>
+            </div>
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+    </div>
+    </body>
+</html>

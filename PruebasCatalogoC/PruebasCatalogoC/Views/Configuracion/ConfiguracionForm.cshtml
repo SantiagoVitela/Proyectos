@@ -1,0 +1,226 @@
+﻿@{
+    Layout = null;
+}
+
+           
+<div id="dvConfiguracionForm" style="display: none;">
+
+    <div class="contenttituloandtoolbar">
+        <div class="tituloformulario">
+            <label>Configuracion</label>
+        </div>
+
+        <div class="toolbar">
+            <div class="boton">
+                <input type="button" data-field="btnRegresar" value="Cancelar" />
+            </div>           
+            <div class="boton">
+                <input type="button" ac="mactmarc.2" data-field="btnActualizar" value="Guardar" />
+            </div>
+        </div>
+    </div>
+    <div class="fixcontenttituloandtoolbar"></div>
+        <br />
+        <span class="spaninfo"></span>
+        <br />
+
+    <!-- 
+        Fix para ie (qué milagro) 
+        Es necesario encerrar todos los controles input en un tag "form" para que al presionar enter sobre un de ellos
+        no se ejecute el evento click del primer botón del diálogo modal.
+     -->
+    <form class="frame">
+        <div class="secciondoc seccioncat">
+            <div class="top">DatosGenerales</div>
+                <div class="content">
+                    
+                    <div class="inputcontent">
+                            <div class="dvlabel col-2"><input type="hidden" data-field="Clave" id="hdClave" value="" />
+                                <span class="requerido">*</span>Tasa de Financiamiento
+                            </div>
+                            <div class="dvinput col col-3">
+                                <input id="txtTasa" data-field="Tasa" data-type="number,2" title="Tasa" type="text" />
+                            </div>
+                    </div>
+                    <div class="inputcontent">
+                            <div class="dvlabel col-2">
+                                <span class="requerido">*</span>% Enganche
+                            </div>
+                            <div class="dvinput col col-3">
+                                <input id="txtPorcEnganche" data-field="PorcEnganche" data-type="number" maxlength="3" title="Porciento de Enganche" type="text" />
+                            </div>
+                    </div>
+                    <div class="inputcontent">
+                            <div class="dvlabel col-2">
+                               <span class="requerido">*</span>Plazo Maximo
+                            </div>
+                            <div class="dvinput col col-3">
+                                <select id="cmbPlazoMaximo" name="cmbPlazoMaximo" data-field="PlazoMaximo" title="Plazo Maximo">
+							        <option value="">Seleccione…</option>                                    
+                                    <option value="3">3</option>                                       
+                                    <option value="6">6</option>                                       
+                                    <option value="9">9</option>                                       
+                                    <option value="12">12</option>                                       
+					            </select>
+                                @*<input id="txtPlazoMaximo" data-field="PlazoMaximo" data-type="number" title="Plazo Maximo" type="text" />*@
+                            </div>
+                    </div>                    
+
+                </div>
+                
+            </div>
+            <div class="clearing"></div>
+        
+    </form>
+</div>
+
+<script type="text/javascript">
+
+    var ConfiguracionForm = function () { }
+
+    ConfiguracionForm.prototype = new Contenedor("dvConfiguracionForm");
+
+    ConfiguracionForm.prototype.inicializa = function () {
+        var self = this;
+
+        self.addEventProperty('btnRegresar', 'click', function () {
+            self.regresar();
+        });
+
+        self.addEventProperty('btnEditar', 'click', function () {
+            //self.activaModoEdicion(self.getProperty('Clave'));
+            goToUrl('@Url.Action("Editar", "Configuracion")' + '/' + self.getProperty('Clave'));
+        });
+
+        self.addEventProperty('btnCrear', 'click', function () {
+            self.crear();
+        });
+
+        self.addEventProperty('btnCrearYNuevo', 'click', function () {
+            self.crear(true);
+        });
+
+        self.addEventProperty('btnActualizar', 'click', function () {
+            var clave = self.getProperty('Clave');
+            if (clave == '0') {
+                self.crear();
+            }
+            else {
+                self.actualizar();
+            }
+        });
+
+        self.leerPropiedadComo('Estatus', 'valor');
+
+        self.addRules();
+    }
+
+    ConfiguracionForm.prototype.regresar = function () {
+        goToUrl('@Url.Action("List", "Principal")');
+    }
+
+    ConfiguracionForm.prototype.crear = function (nuevo) {
+        var self = this;
+
+        self.actionSuccess = function (data) {
+            if (nuevo == true) {
+                if (data.ErrorNumber == undefined) {
+                    dialog('informativo', 'Configuracion', 'El Configuraciono se creó correctamente.');
+                    self.activaModoNuevo();
+                } else {
+                    dialog('error', 'Error', data[0].MensajeUsuario);
+                }
+            } else {
+                if (data.ErrorNumber == undefined) {
+                    self.regresar();
+                } else {
+                    dialog('error', 'Error', data[0].MensajeUsuario);
+                }
+            }
+        }
+
+        self.doAction('@Url.Action("CreateConfiguracion", "Configuracion")');
+    }
+
+    ConfiguracionForm.prototype.actualizar = function () {
+        var self = this;
+
+        self.actionSuccess = function (data) {
+            if (data.ErrorNumber == undefined) {
+                self.regresar();
+            } else {
+                dialog('error', 'Error', data[0].MensajeUsuario);
+            }
+        }
+
+        self.doAction('@Url.Action("UpdateConfiguracion", "Configuracion")');
+    }
+
+    ConfiguracionForm.prototype.addRules = function () {
+        var self = this;
+
+        self.addValidationRule('Tasa', 'required', null, 'El campo Tasa es requerido.');
+        self.addValidationRule('PorcEnganche', 'required', null, 'El campo % Enganche es requerido.');
+        self.addValidationRule('PlazoMaximo', 'required', null, 'El campo Plazo maximo es requerido.');
+        
+    }
+
+    ConfiguracionForm.prototype.activaModoNuevo = function () {
+        var self = this;
+
+        self.clearForm();
+        self.clearErrors();
+
+        self.styleProperty('btnEditar', 'display', 'none');
+        self.styleProperty('btnCrear', 'display', '');
+        self.styleProperty('btnCrearYNuevo', 'display', '');
+        self.styleProperty('btnActualizar', 'display', 'none');
+
+        self.setProperty('Estatus', '1');
+
+        $('#' + self.id).show();
+    }
+
+    ConfiguracionForm.prototype.activaModoEdicion = function (id) {
+        var self = this;
+
+        self.readonly = false;
+
+        self.styleProperty('btnEditar', 'display', 'none');
+        self.styleProperty('btnCrear', 'display', 'none');
+        self.styleProperty('btnCrearYNuevo', 'display', 'none');
+        self.styleProperty('btnActualizar', 'display', '');
+
+        self.mostrar(id);
+
+        $('#' + self.id).show();
+    }
+
+    ConfiguracionForm.prototype.activaModoLectura = function (id) {
+        var self = this;
+
+        self.readonly = true;
+
+        self.styleProperty('btnEditar', 'display', '');
+        self.styleProperty('btnCrear', 'display', 'none');
+        self.styleProperty('btnCrearYNuevo', 'display', 'none');
+        self.styleProperty('btnActualizar', 'display', 'none');
+
+        self.mostrar(id);
+
+        $('#' + self.id).show();
+    }
+
+    ConfiguracionForm.prototype.mostrar = function (id) {
+        var self = this;
+
+        var r = self.doJsonRequest('@Url.Action("GetConfiguracion", "Configuracion")', { clave: id });
+
+        if (r.ErrorNumber == undefined) {
+            self.setJSON(r);
+        }
+        else {
+            dialog('error', 'Error', r[0].MensajeUsuario);
+        }
+    }
+</script>

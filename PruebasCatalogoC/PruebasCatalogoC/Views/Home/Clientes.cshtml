@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = "Clientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model PruebasCatalogoC.Vo.ClienteVO
+<hgroup class="title">    
+    <h2>@ViewBag.Message</h2>
+</hgroup>
+<form name ="client" id="client">
+    <input type="hidden" name="id" id="id" value="@Model.Id">
+    <div>
+        <label>Nombre</label>
+        <input type="text" name="nombre" id="nombre" value = "@Model.Nombre">
+    </div>
+    <div>
+        <label>Apellido Paterno</label>
+        <input type="text" name="apellidoP" id="apellidoP"value = "@Model.ApPaterno">
+    </div>
+    <div>
+        <label>Apellido Materno</label>
+        <input type="text" name="apellidoM" id="apellidoM"value = "@Model.ApMaterno">
+    </div>
+    <div>
+        <label>Fecha Nacimiento</label>
+        <input type="text" name="fecha" id="FechaNac" value ="@Model.FechaNac.ToString("dd/MM/yyyy")">(yyyy-mm-dd)
+    </div>
+    <div>
+        <label>Calle</label>
+        <input type="text" name="peso" id="Calle" value = "@Model.Calle">
+    </div>
+     <div>
+        <label>Numero Ext.</label>
+        <input type="text" name="peso" id="NumExt" value = "@Model.NumExt">
+    </div>
+     <div>
+        <label>Colonia</label>
+        <input type="text" name="peso" id="colonia" value = "@Model.colonia">
+    </div>
+     <div>
+        <label>CP</label>
+        <input type="text" name="peso" id="CP" value = "@Model.CP">
+    </div>
+     <div>
+        <label>Ciudad</label>
+        <input type="text" name="peso" id="Ciudad" value = "@Model.Ciudad">
+    </div>
+     <div>
+        <label>Estado</label>
+        <input type="text" name="peso" id="Estado" value = "@Model.Estado">
+    </div>
+     <div>
+        <label>Estudio Realizar</label>
+        <select id="cmbEstudio" name="cmbEstudio" title="EstudioRealizar" style="min-width:225px;">
+        @foreach (var e in Model.EstudiosList)
+        {
+            if (e.Id == @Model.EstudioRealizar)
+            {
+                <option value="@e.Id" selected="selected">@e.Nombre</option>             
+            }
+            else
+            {
+                <option value="@e.Id">@e.Nombre</option>                              
+            }
+        }
+    </div>
+    <div class="buttonsBar">
+        <input id="cancel" type="button" value ="Cancelar" />
+        <input id="Guardar" type="button" name="Guardar" value ="Guardar" />
+    </div>
+</form>
+<script type="text/javascript">
+    var ClienteForm = function () {
+
+    }
+
+    ClienteForm.prototype.init = function () {
+        var self = this;
+
+        $('#FechaNac').datepicker();
+
+        $("#Guardar").click(function (e) {
+            var obj = self.GetJson();
+            if(self.Validar(obj)){
+                self.GuardarCliente(obj);
+            }
+        });
+        $("#cancel").click(function (e) {
+             location.reload();
+        });
+
+    }
+    ClienteForm.prototype.Validar = function (obj) {
+        var self= this;
+        if(obj.Nombre =='' || obj.ApPaterno =='' || obj.ApMaterno =='' || obj.FechaNac =='' || obj.Calle =='' || obj.NumExt =='' || obj.colonia =='' || obj.CP =='' || obj.Ciudad =='' || obj.Estado =='' || obj.EstudioRealizar =='' ){
+            dialog('error', 'Guardar', ' Verifique los datos, Todos son obligatorios');
+            return false;
+        }
+        return true;
+
+    }
+    ClienteForm.prototype.GuardarCliente = function (obj) {
+       var self = this;
+       
+        var resp = doJsonRequest('@Url.Action("GuardaCliente", "Home") ', obj);
+
+        location.reload();
+    }
+    ClienteForm.prototype.GetJson = function () {
+        var self = this;
+        obj = {};
+
+        obj.Id = $('#id').val();
+        obj.Nombre = $('#nombre').val();
+        obj.ApPaterno = $('#apellidoP').val();
+        obj.ApMaterno = $('#apellidoM').val();
+        obj.FechaNac = $('#FechaNac').val();
+        obj.Calle = $('#Calle').val();
+        obj.NumExt = $('#NumExt').val();
+        obj.colonia = $('#Colonia').val();
+        obj.CP = $('#CP').val();
+        obj.Ciudad =$('#Ciudad').val();
+        obj.Estado = $('#Estado').val();
+        obj.EstudioRealizar = $('#cmbEstudio').val();    
+        
+        return obj;   
+
+    }
+
+    var forma = new ClienteForm();
+    forma.init();
+
+       </script>
