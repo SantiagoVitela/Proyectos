@@ -1,0 +1,77 @@
+﻿/***************************************************************************
+Hojas de estilo para el control de los mensajes de diálogo.
+
+/***************************************************************************/
+.comp{
+	background:#fff;
+	border:1px solid #ddd;
+	font-family:tahoma;
+	font-size:14px;
+	overflow:auto;
+	text-align:left;
+}
+.comptarea{
+	min-width:40px;
+	float:left;
+}
+.comptareaedit{
+	border:0px;padding:3px 0px;height:20px !important;
+}
+.comptareaedit{
+	margin:2px 0px 0px 2px;
+	/*font-size:14px;*/
+}
+.comptareaediterror
+{
+    outline:1px solid #f00 !important;
+}
+.compitem{
+	margin:2px 0px 0px 2px;
+	padding:3px 3px;
+	float:left;
+	background:#f5f5f5;
+	border:1px solid #ccc;
+	/*height:18px;*/
+	position:relative;
+	border-radius:3px;
+}
+.compcapt{
+	min-width:40px;
+	float:left;
+	padding-right:5px;
+}
+.compdele{
+	width:15px;
+	float:right;
+	text-align:center;
+	font-family:verdana;
+	color:#1583C0;
+	border-radius:3px;
+}
+.compdele:hover{
+	cursor:pointer;
+	background:#c0c0c0;
+}
+.comptempty{
+    color: #AAAAAA;
+    font-size: 14px;
+    font-style: italic;
+    padding: 5px;
+}
+.compsearchresult{
+	border:1px solid #ccc;
+	position:absolute;
+}
+.compsearchitem{
+	padding:5px 5px;
+	background:#fafafa;
+}
+.compsearchitemover{
+	cursor:pointer;
+	background:#f0f0f0;
+}
+.compsearchnoitems{
+	color: #AAAAAA;
+	padding:5px 10px;
+	background-color:#fff;
+}

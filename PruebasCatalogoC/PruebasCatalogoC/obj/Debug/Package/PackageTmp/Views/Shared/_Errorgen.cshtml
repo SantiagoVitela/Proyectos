@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Errorgen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<br />
+
+<h2>Lo sentimos :(</h2>
+<br />
+<br />
+<p>
+    @{Html.RenderAction("GetHelp", "Base", new { k = ViewBag.HelpID });}
+</p>

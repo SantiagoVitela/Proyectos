@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<tabla>
+  <config>
+    <paginacion>true</paginacion>
+    <tipo>div</tipo>
+    <porPagina>10</porPagina>
+    <!--<selectMultiple>true</selectMultiple>-->
+  </config>
+  <columna>
+    <activo>true</activo>
+    <field>Clave</field>
+    <header>Clave Cliente</header>
+  </columna>
+  <columna>
+    <activo>true</activo>
+    <field>NombreCompleto</field>
+    <header>Nombre</header>
+    <busqueda>true</busqueda>
+  </columna>
+  
+</tabla>

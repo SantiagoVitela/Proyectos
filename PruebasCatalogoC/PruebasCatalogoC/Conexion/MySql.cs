@@ -797,9 +797,9 @@ namespace PruebasCatalogoC.Conexion
         public static MySqlConnection connection()
         {
 
-            //MySqlConnection con = new MySqlConnection("Data Source=192.168.0.108; Database=saludD; UID=root; Password=kujJHR85JHM; Port=3308;");
+            MySqlConnection con = new MySqlConnection("Data Source=192.168.0.108; Database=vendimia; UID=root; Password=kujJHR85JHM; Port=3308;");
 
-            MySqlConnection con = new MySqlConnection("Data Source=localhost; Database=vendimia; UID=root; Password=123456; Port=3309;");
+            //MySqlConnection con = new MySqlConnection("Data Source=localhost; Database=vendimia; UID=root; Password=123456; Port=3309;");
 
             return con;
 

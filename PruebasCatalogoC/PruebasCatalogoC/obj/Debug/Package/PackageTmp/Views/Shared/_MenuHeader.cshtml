@@ -1,0 +1,42 @@
+﻿
+@{
+    Layout = null;
+}
+@{
+    PruebasCatalogoC.Vo.SessionContextVO objSes = null;
+    var o = Session["sessionContext"];
+    if(o!=null){
+        objSes = (PruebasCatalogoC.Vo.SessionContextVO)o;
+    }else{
+        objSes = new PruebasCatalogoC.Vo.SessionContextVO();
+    }
+}
+
+    <div id="dvContentMenuHeader">
+            
+        <div class="toolbarheader">            
+            
+            @if (PageData[0] == PruebasCatalogoC.Vo.VistaSistema.Aplicacion)
+            {
+                <ul>
+                    <li ac="misctas.0" class="item">
+                        @*<a href="javascript:void();" id="btnMenuMisCuentas">Principal</a>*@
+                    </li>
+                </ul>
+                               
+            }
+        </div>         
+        
+
+        @*<div id="dvLogout" class="over" title="Salir"></div>*@
+        @*<div id="helpIconMaster" data-help="MASPAG01"></div>*@
+         
+    </div>
+
+        <script type="text/javascript">
+            
+            $('#dvLogout').click(function () {
+                window.location.href = '@Url.Action("Logout", "Cuenta", new { area = "" })';
+            });
+        </script>
+

@@ -1,0 +1,595 @@
+﻿@{
+    Layout = null;
+}
+        
+<div id="dvVentaForm">
+
+    <div class="contenttituloandtoolbar">
+        <div class="tituloformulario">
+            <label>Venta</label>
+        </div>
+
+        <div class="toolbar">
+            
+        </div>
+    </div>
+    <div class="fixcontenttituloandtoolbar"></div>
+        <br />
+
+        <br />
+
+    <!-- 
+        Fix para ie (qué milagro) 
+        Es necesario encerrar todos los controles input en un tag "form" para que al presionar enter sobre un de ellos
+        no se ejecute el evento click del primer botón del diálogo modal.
+     -->
+    <form class="frame">
+        <div class="secciondoc seccioncat" style="min-height:200px; padding-bottom: 10px;">
+            <div class="top">Datos</div>
+            <div class="content">
+                <div class="seccionrow">                   
+                    <div class="inputcontent col-4">
+                        <div class="dvlabel">
+                            Cliente
+                        </div>
+                        <div class="dvinput" >
+                             <div id="dvBusquedaCliente"></div>   
+                        </div>  
+                    </div>                  
+                    <div class="inputcontent col-4">
+                        <input type="hidden" data-field="Cliente"/>
+                        <div class="dvlabel">
+                            <label data-field="RFC" value=""></label> 
+                        </div>
+                    </div>
+                    <div class="inputcontent col-4">                        
+                        <div class="dvlabel">
+                            Folio <label data-field="Folio" value="@ViewBag.Folio">@ViewBag.Folio</label> 
+                        </div>
+                    </div>
+                </div>
+                <div class="seccionrow"> 
+                    <div class="inputcontent col-6">
+                        <div class="dvlabel">
+                           Articulo
+                        </div>
+                        <div class="dvinput seccionrow" >
+                            <div class="inputcontent col-8">
+                                <div id="dvBusquedaArticulo" ></div>
+                            </div>
+                            <div class="inputcontent col-2">
+                                <input type="button" data-field="btnAgregar" value="Agregar" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearing"></div>
+        </div>
+        <div class="secciondoc seccioncat" >
+                <div class="top">
+                   Articulos
+                </div>
+                <div class="content">
+                    <br />
+                    <div  id="dvArticulos"></div>
+                    <br />  
+                    <div class="seccionrow"> 
+                        <div class="inputcontent col-7"> 
+                        </div>                
+                        <div class="inputcontent col-4">
+                            <div class="seccionrow">                   
+
+                                <div class="dvlabel col-2">
+                                    Enganche
+                                </div>
+                                <div class="dvlabel col-5">
+                                    <input id="txtEnganche" data-field="Enganche" readonly="readonly" data-type="number,2" title="Enganche" type="text" />                                    
+                                </div>
+                            </div>
+                        </div>      
+                    </div>
+                    <div class="seccionrow"> 
+                        <div class="inputcontent col-7"> 
+                        </div>                
+                        <div class="inputcontent col-4">
+                            <div class="seccionrow">                   
+
+                                <div class="dvlabel col-2">
+                                    Bonificacion Enganche
+                                </div>
+                                <div class="dvlabel col-5">
+                                    <input id="txtBonificacionEnganche" data-field="Bonificacion" readonly="readonly" data-type="number,2"  title="Bonificacion Enganche" type="text" />
+                                </div>
+                            </div>
+                        </div>      
+                    </div>
+                    <div class="seccionrow"> 
+                        <div class="inputcontent col-7"> 
+                        </div>                
+                        <div class="inputcontent col-4">
+                            <div class="seccionrow">                   
+
+                                <div class="dvlabel col-2">
+                                    Total
+                                </div>
+                                <div class="dvlabel col-5">
+                                    <input id="txtTotal" data-field="TotalT" readonly="readonly" data-type="number,2" title="Total" type="text" />
+                                </div>
+                            </div>
+                        </div>      
+                    </div>
+                    <div class="seccionrow"> 
+                        <div class="inputcontent col-7"> 
+                        </div>                
+                        <div class="inputcontent col-4">
+                            <div class="seccionrow">                   
+
+                                <div class="dvlabel col-2">
+                                    <input type="button" id="btnCancelar" data-field="btnCancelar" value="Cancelar" />
+                                </div>
+                                <div class="dvlabel col-5">
+                                    <input type="button" id="btnContinuar" data-field="btnContinuar" value="Siguiente" />
+                                </div>
+                            </div>
+                        </div>      
+                    </div>
+                    <br />
+                </div>
+            </div>
+             <div id="secAbonos" class="secciondoc seccioncat" >
+                <div class="top">
+                   Abonos
+                </div>
+                <div class="content">
+                    <br />
+                    <div  id="dvAbonos"></div>
+                    <div class="seccionrow"> 
+                        <div class="inputcontent col-7"> 
+                        </div>                
+                        <div class="inputcontent col-4">
+                            <div class="seccionrow">                   
+
+                                <div class="dvlabel col-2">
+                                    
+                                </div>
+                                <div class="dvlabel col-5">
+                                    <input type="button" id="btnGuardar" data-field="btnGuardar" value="Guardar" />
+                                </div>
+                            </div>
+                        </div>      
+                    </div>
+                </div>
+            </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var VentaForm = function () {
+        
+    }
+    ListaArticulos = new Array();
+    VentaForm.prototype = new Contenedor("dvVentaForm");
+
+    VentaForm.prototype.inicializa = function () {
+        var self = this;        
+
+        self.addRules();
+        self.inicializaCliente();
+        self.inicializaArticulo();
+        self.ArmarTablaArticulos()
+
+    }
+
+    VentaForm.prototype.regresar = function () {
+        goToUrl('@Url.Action("List", "Venta")');
+    }
+    VentaForm.prototype.inicializaCliente = function () {
+        var self = this;
+        ListaArticulos = new Array();
+
+        $('#secAbonos').hide();
+        self.addEventProperty('btnAgregar', 'click', function () {
+            self.agregarArticulo();
+        });
+
+        self.addEventProperty('btnContinuar', 'click', function () {
+            self.MostrarAbonos();
+        });
+
+        self.addEventProperty('btnGuardar', 'click', function () {
+            self.guardar();
+        });
+
+        var dvBusquedaClienteId = 'dvBusquedaCliente' + new Date().getTime() + '' + Math.floor((Math.random() * 100000) + 1);
+        $("#dvBusquedaCliente").attr('id', dvBusquedaClienteId);
+
+        self.aCodigoClienteBox = new AlgoriaElementsBox(dvBusquedaClienteId);
+        self.aCodigoClienteBox.onsearching = function (criteria) {
+
+
+            self.aCodigoClienteBox.itemsfilter = [];
+            var r = self.doJsonRequest('@Url.Action("GetClienteList", "Cliente", new {area=""})', { criterio: criteria, seleccionable: '' });
+            if (r.length != 0) {
+                self.aCodigoClienteBox.itemsfilter = r;
+                return r;
+            } else {
+                return new Array();
+            }
+        }
+
+        self.aCodigoClienteBox.possearch = function (value) {
+            if (self.aCodigoClienteBox.enter) {
+                var result = self.aCodigoClienteBox.selectItemEnter(value);
+                //if (result)
+                //self.AgregarCliente(true);
+            }
+        }
+
+        self.aCodigoClienteBox.width = 400;
+        self.aCodigoClienteBox.height = 30;
+        self.aCodigoClienteBox.enableSearch = true;
+        self.aCodigoClienteBox.initialText = 'Escriba la descripción del Cliente';
+        self.aCodigoClienteBox.maxItems = 1;
+        self.aCodigoClienteBox.create();
+
+        self.aCodigoClienteBox.posSelected = function (o) {
+            self.CambioCliente();
+            //alert(o);
+        }
+        self.aCodigoClienteBox.posDelete = function () {
+            //self.CambioCliente();
+        }
+        self.aCodigoClienteBox.onSelectItem = function (o) {
+            self.sistemaAutocomplete.setText(o.Descripcion);
+            self.setProperty('Cliente', o.Clave);
+            self.setProperty('RFC', 'RFC' + o.RFC);
+        };
+        $('#' + dvBusquedaClienteId).on('keydown', '.comptareaedit', function (event) {
+
+            if (event.ctrlKey)
+                return false;
+
+            self.aCodigoClienteBox.enter = event.keyCode == '13';
+
+            if (event.keyCode == '13' || event.keyCode == '0') {
+                var result = self.aCodigoClienteBox.selectItemEnter($(this).val());
+            }
+        });
+    };
+    VentaForm.prototype.guardar = function () {
+        var self = this;
+
+        self.actionSuccess = function (data) {
+            if (data.ErrorNumber == undefined) {
+                self.regresar();
+            } else {
+                dialog('error', 'Error', data[0].MensajeUsuario);
+            }
+        }
+
+        self.doAction('@Url.Action("CreateVenta", "Venta")');
+    }
+    VentaForm.prototype.inicializaArticulo = function () {
+        var self = this;
+
+
+
+        var dvBusquedaArticuloId = 'dvBusquedaArticulo' + new Date().getTime() + '' + Math.floor((Math.random() * 100000) + 1);
+        $("#dvBusquedaArticulo").attr('id', dvBusquedaArticuloId);
+
+        self.aCodigoArticuloBox = new AlgoriaElementsBox(dvBusquedaArticuloId);
+        self.aCodigoArticuloBox.onsearching = function (criteria) {
+
+
+            self.aCodigoArticuloBox.itemsfilter = [];
+            var r = self.doJsonRequest('@Url.Action("GetArticuloList", "Articulo", new {area="Catalogos"})', { criterio: criteria, seleccionable: '' });
+            if (r.length != 0) {
+                self.aCodigoArticuloBox.itemsfilter = r;
+                return r;
+            } else {
+                return new Array();
+            }
+        }
+
+        self.aCodigoArticuloBox.possearch = function (value) {
+            if (self.aCodigoArticuloBox.enter) {
+                var result = self.aCodigoArticuloBox.selectItemEnter(value);
+                //if (result)
+                //self.AgregarArticulo(true);
+            }
+        }
+
+        self.aCodigoArticuloBox.width = 400;
+        self.aCodigoArticuloBox.height = 30;
+        self.aCodigoArticuloBox.enableSearch = true;
+        self.aCodigoArticuloBox.initialText = 'Escriba la descripción del Articulo';
+        self.aCodigoArticuloBox.maxItems = 1;
+        self.aCodigoArticuloBox.create();
+
+        self.aCodigoArticuloBox.posSelected = function () {
+            //self.CambioCliente();
+        }
+        self.aCodigoArticuloBox.posDelete = function () {
+            //self.CambioCliente();
+        }
+
+        $('#' + dvBusquedaArticuloId).on('keydown', '.comptareaedit', function (event) {
+
+            if (event.ctrlKey)
+                return false;
+
+            self.aCodigoArticuloBox.enter = event.keyCode == '13';
+
+            if (event.keyCode == '13' || event.keyCode == '0') {
+                var result = self.aCodigoArticuloBox.selectItemEnter($(this).val());
+            }
+        });
+    };
+    VentaForm.prototype.CambioCliente = function () {
+        var self = this;
+        var cliente = '';
+        $('#itemContener' + self.aCodigoClienteBox.uniqueIdentifier + ' div [class=compcapt]').each(function () {
+            cliente = $(this).attr('data-value');
+            separador = ',';
+        });
+
+        var obj = self.doJsonRequest('@Url.Action("GetCliente", "Cliente")', { 'clave': cliente });
+        if (obj.ErrorNumber != undefined) {
+            dialog('error', 'Ventas', obj.ErrorDesc);
+        } else {
+            self.setProperty('Cliente', obj.Clave);
+            self.setProperty('RFC','RFC :' + obj.RFC);
+
+            //alert(HistorialList);
+        }
+
+    }
+    VentaForm.prototype.agregarArticulo = function () {
+        var self = this;
+
+        var art = '';
+        $('#itemContener' + self.aCodigoArticuloBox.uniqueIdentifier + ' div [class=compcapt]').each(function () {
+            art = $(this).attr('data-value');
+            separador = ',';
+        });
+        if (art != '' && art != null) {
+            var obj = self.doJsonRequest('@Url.Action("GetArticuloParaVenta", "Articulo")', { 'clave': art });
+            if (obj.ErrorNumber != undefined) {
+                dialog('error', 'Ventas', obj.ErrorDesc);
+            } else {
+                var esta = self.BuscarEnLista(obj);
+                if (esta) {
+                    self.EditarCantidad(obj);
+                }
+                else {
+                    self.AgregarArticuloTabla(obj);
+                }
+                self.recalculaTotal();
+            }
+        }
+    }
+
+    VentaForm.prototype.BuscarEnLista = function (obj) {
+        var self = this;
+        var existe = false;
+        //console.log(ListaArticulos);
+        for (var i = 0; i < ListaArticulos.length; i++) {            
+            var existe = ListaArticulos[i].Clave == obj.Clave;
+            if (existe) {
+                break;
+            }
+        }
+
+        return existe;
+    }
+    VentaForm.prototype.EditarCantidad = function (obj) {
+        var self = this;
+        for (var i = 0; i < ListaArticulos.length; i++) {
+            if (ListaArticulos[i].Clave == obj.Clave) {
+                ListaArticulos[i].Cantidad = ListaArticulos[i].Cantidad + 1;                
+                obj.Cantidad = ListaArticulos[i].Cantidad;
+                obj.Importe = obj.Cantidad * obj.PrecioReal;
+                ListaArticulos[i].Importe = obj.Cantidad * obj.PrecioReal;
+
+            }
+
+        }
+
+        var tabla = $('#Articulos');
+        var row = $(tabla).find('*[data-clave="' + obj.Clave + '"]').eq(0);
+        var precio = AlgoriaFormat.unformat(row.find('*[data-field="Precio"]').eq(0).text());
+        var cantidad = row.find('*[data-field="Cantidad"]').eq(0);
+        var importe = row.find('*[data-field="Importe"]').eq(0);
+        $(cantidad).text(obj.Cantidad);
+        importe.text(AlgoriaFormat.format(obj.Cantidad * obj.PrecioReal, 2));
+    }
+    VentaForm.prototype.AgregarArticuloTabla = function (obj) {
+        var self = this;
+        var trArticulo = '';
+        var i = ListaArticulos.Length;
+        trArticulo += '<tr data-clave="' + obj.Clave + '" text-align:left><td>' + obj.Descripcion + '</td><td>' + obj.Modelo + '</td><td> <label data-field="Cantidad" data-type="number,2">' + obj.Cantidad + '</label></td><td style="text-align: right;"><label data-field="Precio" data-type="number,2">' + AlgoriaFormat.format(obj.PrecioReal, 2) + '</label><td style="text-align: right;"><label data-field="Importe" data-type="number,2">' + AlgoriaFormat.format(obj.Importe, 2) + '</label><td>eliminar</td></tr>';
+        ListaArticulos.push(obj);
+        $('#Articulos').append(trArticulo);
+    };
+
+    VentaForm.prototype.recalculaTotal = function () {
+        var self = this;
+        var total = 0;
+        var Tasa = 0;
+        var PorcEnganche = 0;
+        var Plazo = 12;
+        var totalIngresado = 0;
+        var totalPagar = 0;
+        for (var i = 0; i < ListaArticulos.length; i++) {
+            total += ListaArticulos[i].Importe;
+        }
+        var obj = self.doJsonRequest('@Url.Action("GetConfiguracion", "Configuracion")');
+        if (obj.ErrorNumber != undefined) {
+
+        } else {
+            Tasa = obj.Tasa;
+            PorcEnganche = obj.PorcEnganche;
+            Plazo = obj.PlazoMaximo;
+        }
+
+        var Enganche = total * (PorcEnganche / 100);
+        var Bonificacion = parseFloat(Enganche) * ((parseFloat(Tasa) * parseFloat(Plazo)) / 100);
+        var TotalImporte = total - Enganche - Bonificacion;
+        //console.log(parseFloat(Plazo));
+        self.setProperty('Enganche', AlgoriaFormat.format(Enganche, 2));
+        self.setProperty('Bonificacion', AlgoriaFormat.format(Bonificacion, 2));
+        self.setProperty('TotalT', AlgoriaFormat.format(TotalImporte, 2));
+    };
+
+    VentaForm.prototype.addRules = function () {
+        var self = this;
+        self.addValidationRule('Plazo', 'required', null, 'Debe seleccionar un plazo para realizar el pago de su compra.');
+    };
+
+
+    VentaForm.prototype.activaModoNuevo = function () {
+        var self = this;
+
+        
+        $('#' + self.id).show();
+    }
+
+    VentaForm.prototype.MostrarAbonos = function () {
+        var self = this;
+        var cliente = self.getProperty('Cliente');
+        if (cliente == '' || ListaArticulos == null || ListaArticulos.length == 0) {
+            dialog('error', 'Ventas', 'Los datos ingresados no son correctos, favor de verificar');
+            return;
+        }
+        $('#secAbonos').show();
+        $('#btnCancelar').hide();
+        $('#btnContinuar').hide();
+        self.MostrarTablaAbonos();
+
+
+    }
+    VentaForm.prototype.MostrarTablaAbonos = function () {
+        var self = this;
+        var Tasa = 0;
+        var PorcEnganche = 0;
+        var Plazo = 12;
+        var obj = self.doJsonRequest('@Url.Action("GetConfiguracion", "Configuracion")');
+        if (obj.ErrorNumber != undefined) {
+
+        } else {
+            Tasa = obj.Tasa;
+            PorcEnganche = obj.PorcEnganche;
+            Plazo = obj.PlazoMaximo;
+        }
+        var TotalAdeudo = parseFloat(self.getProperty('TotalT'));
+        var PrecioContado = TotalAdeudo / (1 + ((Tasa * Plazo) / 100));
+        var TotalPagar = 0;
+        $('#dvAbonos').empty();
+        var strTablaHD = '<label style="color:#1583C0; font-size: 14px; font-weight:bold;"></label> <br/>';
+        strTablaHD += '<div class="gridPaginado" style=" min-height: 10px">';
+        strTablaHD += '<div class="generalgrid" style=" min-height: 10px">';
+        strTablaHD += '<div class="container" style=" min-height: 10px">';
+        strTablaHD += '<table id="Articulos" border="1" style=" width:100%">';
+        strTablaHD += '<tr><th style="width:20%;"></th><th style="width:20%;"></th><th style="width:20%;"></th><th style="width:20%;"></th><th style="width:20%;"></th></tr>';
+        for (var i = 3; i <= Plazo; i = i + 3) {
+            console.log(i);
+            TotalPagar = PrecioContado * (1 + (Tasa * i) / 100);
+            var abono = TotalPagar / i;
+            var ahorro = TotalAdeudo - TotalPagar;
+            strTablaHD += '<tr text-align:left><td>' + i + ' ABONOS DE </td><td> <label data-field="Abono" data-type="number,2">$' + AlgoriaFormat.format(abono, 2) + '</label></td><td> <label data-field="Abono" data-type="number,2"> TOTAL A PAGAR $' + AlgoriaFormat.format(TotalPagar,2) + '</LABEL></td><td><label data-field="ahorro" data-type="number,2">SE AHORRA $' +AlgoriaFormat.format( ahorro,2) + '</label></td><td><input type="radio" name ="rdPlazo" data-field="Plazo" value="' + i + '" /></td></tr>';
+
+
+        }
+        //strTablaHD += '<body></body>';
+        strTablaHD += '</table>';
+        strTablaHD += '</div>';
+        strTablaHD += '</div>';
+        strTablaHD += '</div>';
+        $('#dvAbonos').append(strTablaHD);
+        $('input[name=rdPlazo]').show()
+    }
+    VentaForm.prototype.ArmarTablaArticulos = function () {
+        var self = this;
+
+        var strTablaHD = '<label style="color:#1583C0; font-size: 14px; font-weight:bold;"></label> <br/>';
+        strTablaHD += '<div class="gridPaginado" style=" min-height: 10px">';
+        strTablaHD += '<div class="generalgrid" style=" min-height: 10px">';
+        strTablaHD += '<div class="container" style=" min-height: 10px">';
+        strTablaHD += '<table id="Articulos" border="1" style=" width:100%">';
+        strTablaHD += '<tr><th style="width:30%;">Descripción Articulo</th><th style="width:15%;">Modelo</th><th style="width:15%;">Cantidad</th><th style="width:15%;">Precio</th><th style="width:15%;">Importe</th><th style="width:10%;"></th></tr>';
+
+        //strTablaHD += '<body></body>';
+        strTablaHD += '</table>';
+        strTablaHD += '</div>';
+        strTablaHD += '</div>';
+        strTablaHD += '</div>';
+        $('#dvArticulos').append(strTablaHD);
+    }
+
+    AlgoriaElementsBox.prototype.getSeleccion = function () {
+        var self = this;
+        var doc = null;
+        var clave = self.getItems().length > 0 ? self.getItems()[0].value : "";
+        var items = self.itemsfilter ? self.itemsfilter : [];
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].value == clave) {
+                doc = items[i];
+                break;
+            }
+        }
+        return doc;
+    }
+
+    AlgoriaElementsBox.prototype.selectItemEnter = function (text) {
+        var self = this;
+        var id = -1;
+        var items = self.itemsfilter ? self.itemsfilter : [];
+
+        var litemsresult = document.getElementsByClassName('compsearchitem');
+        for (var i = 0, ln = litemsresult.length; i < ln; i++) {
+            var clave = litemsresult[i].getAttribute('value');
+            litemsresult[i].setAttribute('class', 'compsearchitem');
+
+            for (var j = 0; j < items.length; j++) {
+                if (items[j].value == clave) {
+                    if (text == items[j].value || text == items[j].text || text == items[j].Cliente || text == parseInt(items[j].Cliente) || text.toLowerCase() == items[j].Cliente.toLowerCase() || text == items[j].NombreCompleto) {
+                        litemsresult[i].setAttribute('class', 'compsearchitem compsearchitemover');
+                        id = i;
+                    }
+                }
+            }
+        }
+        self.elementSelectedOnSearchList = parseInt(id);
+
+        if (id > -1) {
+            self.clickItemSearchResult(id);
+            return true;
+        }
+
+        return false;
+    }
+    //    AlgoriaElementsBox.prototype.posSelected = function () {
+    //        $('#btnAgregarAnexos').focus();
+    //        
+    //    }
+    AlgoriaElementsBox.prototype.focus = function () {
+        var self = this;
+        self.endEditing();
+        self.startEditing();
+    }
+
+    AlgoriaElementsBox.prototype.attachEventKeyPress = function (txtid) {
+        var self = this;
+        var fnkeypress = function (e) {
+            var txtobj = document.getElementById('txtEscAct' + self.uniqueIdentifier);
+            if (self.temporizer != null) { window.clearTimeout(self.temporizer); } // eliminar temp
+            self.temporizer = setTimeout(function () { self.dosearch(txtobj.value); self.possearch(txtobj.value); }, 500); //Crear Temp
+        }
+        self.attachEvent(txtid, 'keypress', fnkeypress);
+    }
+
+    AlgoriaElementsBox.prototype.possearch = function (value) {
+
+    }
+</script>

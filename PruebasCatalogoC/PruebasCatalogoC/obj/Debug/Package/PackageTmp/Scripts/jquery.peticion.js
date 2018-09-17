@@ -1,13 +1,19 @@
 ﻿var loadingRequest = false;
 var peticiones = 0;
 
-function Peticion() {
+var Peticion = function() {
     this.url = null;
     this.json = null;
     this.addwait = true;
     this.datatype = null;
+    this.action = null;
+    this.Action = null;
     this.contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
     this.async = true;
+};
+
+function Action() {
+    this.Accion = null;
 };
 
 /**
@@ -20,6 +26,12 @@ function Peticion() {
 Peticion.prototype.solicitar = function (json) {
 
     var objself = this;
+    if (objself.addwait == true) {
+
+        // Se abre la tela transparente
+        loading();
+    }
+
     if (json != null) {
         this.json = json;
     }
@@ -34,57 +46,56 @@ Peticion.prototype.solicitar = function (json) {
 
 Peticion.prototype.solicitarJson = function () {
     var objself = this;
-
     if (JSON.stringify(this.json).indexOf('\\"') == -1) {
-        objself.contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+        this.contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+        $.extend(true, this.json, this.Action);
     } else {
-        objself.contentType = 'application/json; charset=utf-8';
-        objself.json = JSON.parse(this.json);
-        objself.json = JSON.stringify(this.json);
+        this.contentType = 'application/json; charset=utf-8';
+        this.json = JSON.parse(this.json);
+        $.extend(true, this.json, this.Action);
+        this.json = JSON.stringify(this.json);
     }
 
-    if (objself.addwait == true) {
-        loading();
-    }
+    // SE incrementa el número de peticiones
+    //peticiones++;
 
-    var myjson = objself.json;
-    $.ajax({
+    //console.log(json);
+
+    var myjson = this.json;
+    var peticion = $.ajax({
         url: objself.url,
         dataType: "json",
         contentType: objself.contentType,
         data: myjson,
         type: "post",
         async: objself.async,
-        success: function (salida, jqXHR, textStatus) {
+        success: function (salida) {
 
-
-            if (salida == null)
-                objself.error(salida, jqXHR, textStatus);
-            else if (salida[0] == null) {
-                objself.error(salida, jqXHR, textStatus);
-                //objself.error("Salida nula", jqXHR, textStatus);
-            }
-            else if (salida[0].Clave == 0)
-                objself.posSolicitar(salida);
-            else
-                objself.error(salida, jqXHR, textStatus);
-
-            // Cerrar la tela
             if (objself.addwait == true) {
                 closeLoading();
+                objself.addwait = false;
+            }
+
+            // función success configurada
+            if (salida == null || salida.ErrorNumber != undefined && salida.ErrorNumber != 0) {
+                objself.error(salida);
+            } else {
+                objself.posSolicitar(salida);
             }
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function (request, ajaxOptions, sald) {
 
-            /*console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);*/
-            var salida = [{ "clave": -1, "descripcion": "error desconocido", "MensajeUsuario": jqXHR}];
-            objself.error(salida, jqXHR, textStatus, errorThrown);
-
-            // Cerrar la tela
             if (objself.addwait == true) {
                 closeLoading();
+                objself.addwait = false;
+            }
+            // Función de error configurada
+            objself.error(sald);
+        },
+        complete: function () {
+            if (objself.addwait == true) {
+                closeLoading();
+                objself.addwait = false;
             }
         }
     });
@@ -93,46 +104,52 @@ Peticion.prototype.solicitarJson = function () {
 Peticion.prototype.solicitarDefault = function () {
     var objself = this;
 
-    if (JSON.stringify(this.json).indexOf('\\"') == -1) {
-        this.contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
-    } else {
-        this.contentType = 'application/json';
-        this.json = JSON.parse(this.json);
-        this.json = JSON.stringify(this.json);
+    if (objself.json != null && objself.json != undefined) {
+        if (JSON.stringify(objself.json).indexOf('\\"') == -1) {
+            objself.contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+            $.extend(true, objself.json, objself.Action);
+        } else {
+            objself.contentType = 'application/json; charset=utf-8';
+            objself.json = JSON.parse(objself.json);
+            $.extend(true, objself.json, objself.Action);
+            objself.json = JSON.stringify(objself.json);
+        }
     }
+    var myjson = objself.json;
 
-    if (objself.addwait == true) {
-        loading();
-    }
-
-    $.ajax({
+    var peticion = $.ajax({
         url: objself.url,
         dataType: objself.datatype,
-	    contentType: objself.contentType,
-        data: objself.json,
+        contentType: objself.contentType,
+        data: myjson,
         type: "post",
         async: objself.async,
         success: function (salida) {
 
-            if (salida == null)
-                objself.error("Salida nula");
-            else 
-                objself.posSolicitar(salida);
-
-            // Cerrar la tela
             if (objself.addwait == true) {
                 closeLoading();
+                objself.addwait = false;
             }
+            // función success configurada
+            if (salida == null || salida.ErrorNumber != undefined && salida.ErrorNumber != 0)
+                objself.error(salida);
+            else
+                objself.posSolicitar(salida);
         },
-        error: function () {
+        error: function (request, ajaxOptions, sald) {
 
-            var salida = [{ "clave": -1, "descripcion": "error desconocido"
-            }];
-            objself.error(salida);
-
-            // Cerrar la tela
             if (objself.addwait == true) {
                 closeLoading();
+                objself.addwait = false;
+            }
+
+            // Función de error configurada
+            objself.error(sald);
+        },
+        complete: function () {
+            if (objself.addwait == true) {
+                closeLoading();
+                objself.addwait = false;
             }
         }
     });
@@ -143,7 +160,6 @@ Peticion.prototype.solicitarDefault = function () {
 * 
 */
 Peticion.prototype.posSolicitar = function (data) {
-
 };
 
 /**
@@ -151,46 +167,40 @@ Peticion.prototype.posSolicitar = function (data) {
 * 
 */
 Peticion.prototype.error = function (data) {
-
 };
 
-function loading() {
+Peticion.isLoading = function() {
     
+    //    console.log('inicio pet: ' + peticiones);
+    if (loadingRequest == null) {
+        return false;
+    }
+    return loadingRequest;
+}
+
+function loading() {
+
     // Se incrementa el número de peticiones
     peticiones++;
 
-    //openTransparent();
+    openTransparent();
 
-    // dimensiones de la ventana del explorer
-    var wscr = $(window).width();
-    var hscr = $(window).height();
-
-    // obtener posicion central
-    var mleft = (wscr - 80) / 2;
-    var mtop = (hscr - 76) / 2;
-
-    if (peticiones == 1) {
-        var temp = "<div id='divLoading' style=\"position:absolute; left:" + mleft + "px; top:" + mtop + "px; background:transparent;z-index:10000; \">";
-        temp += "   <img src=\"" + '' + "/Content/images/img_trans.gif\" width=\"1px\"  height=\"1px\" style=\"width: 80px; height: 76px; background: url(" + '' + "/Content/images/loadinfo.gif) -1190px -120px;\" />";
-        temp += "</div>";
-
-        $('body').append(temp);
-    }
+    $("#divbgtransparent").addClass('imgloader');
 
     loadingRequest = true;
 }
 
 function closeLoading() {
     peticiones--;
+    //console.log('Peticiones abiertas = ', peticiones);
 
-    //closeTransparent();
+    closeTransparent();
 
-    if (peticiones == 0) {
+    if (peticiones < 1) {
         peticiones = 0;
         loadingRequest = false;
 
-        // Se elimina el div central de donde esté
-        $('#divLoading').remove();
+        $("#divbgtransparent").removeClass('imgloader');
     }
 }
 

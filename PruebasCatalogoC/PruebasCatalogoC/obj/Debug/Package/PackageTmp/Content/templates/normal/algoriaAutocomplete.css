@@ -1,0 +1,41 @@
+﻿/***************************************************************************
+Hojas de estilo para el control del algoriaAutocomplete
+Aqui se definen los elementos que componen una algoriaAutocomplete
+
+/***************************************************************************/
+
+.autc{
+	/*border:1px solid #ccc;*/
+}
+.autcresult{
+	margin-left:-1px;
+	border:inherit !important;
+	background-color:#fff;
+	z-index:100;
+}
+.autcempty{
+	color: #AAAAAA;
+	font-size: 14px;
+	font-style: italic;
+	padding: 5px;
+}
+.autcsearchresult{
+	border:1px solid #ccc;
+	position:absolute;
+}
+.autcsearchitem{
+	padding:5px 5px;
+	background:#fafafa;
+	border-bottom:1px solid #ccc;
+}
+.autcsearchitemover{
+	cursor:pointer;
+	background:#f0f0f0;
+}
+.autcsearchnoitems{
+	color: #AAAAAA;
+	padding:5px 10px;
+	background-color:#fff;
+	font-style:italic;
+}
+			

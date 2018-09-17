@@ -1,0 +1,164 @@
+﻿@{
+    Layout = null;
+}
+
+<style type="text/css">
+  
+   #dvSelectorEmpresas
+   {
+        background: none repeat scroll 0 0 #fff;
+        border:1px solid #6cb3dd;
+        height: 27px;
+        position: absolute;
+        right: 80px;
+        top: 13px;
+        vertical-align: middle;
+        width: 275px;
+        padding-left:5px;
+        font-size:13px;
+   }
+    #dvSelectorEmpresas .s1
+    {
+        width:80%;
+        float:left;
+        padding-top:5px;
+        font-weight:bold;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        color:#1082c0;
+    }
+    #dvSelectorEmpresas .s2
+    {
+        width:20%;
+        float:left;
+        padding-top:10px;
+    }
+    
+    #lblEmpresaSeleccionada
+    {
+        font-weight:bold;
+        top:15px;
+        position:absolute;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    
+    #imgSeleccionarEmpresa
+    {
+        margin-top:-2px;
+        right:5px;
+        position:absolute;
+    }
+    
+    #imgSeleccionarEmpresa:hover
+    {
+        cursor:pointer;
+    }
+
+    #dvSelectorEmpresasList
+    {
+        width: 280px;
+        vertical-align: middle;
+        display: none;
+        z-index: 1018;
+        max-height: 110px;
+        overflow: auto;
+        top: 27px;
+        background: #fff;
+        position: absolute;
+        left: -1px;
+        border: 1px solid #6cb3dd;
+    }
+
+    .empresaItem
+    {
+        width:99%;
+        height:25px;        
+        float:left;
+        padding-left:1%;
+        padding-top:5px;
+        font-size:12px;
+    }
+
+    .empresaItem:hover
+    {
+        cursor:pointer;
+        background:#1581bf;
+        color:#fff;
+    }
+
+</style>
+
+    <div id="dvSelectorEmpresas" title="Cambiar de emisor">
+   
+        <div class="s1">
+            @*<label id="lblEmpresaSeleccionada">*@
+        
+                @{BaseCFCore.VO.Empresas.EmpresaVO empresaVO = ViewBag.EmpresaSeleccionada;}
+            
+                @if(empresaVO != null){
+                    @empresaVO.RazonSocial;
+                }
+
+            @*</label>*@
+        </div>
+        <div class="s2">
+            @if (ViewBag.Empresas.Count > 0)
+            {
+                <img id="imgSeleccionarEmpresa" src="@Url.Content("~/Content/templates/normal/imagenes/buttondown.png")" alt="down" />
+            }
+        </div>
+
+        @if (ViewBag.Empresas.Count > 0)
+        {
+            <div id="dvSelectorEmpresasList" class="alertlist" style="display:none;">
+    
+                @foreach (BaseCFCore.VO.Empresas.EmpresaVO e in ViewBag.Empresas)
+                {
+                    <label class="empresaItem" key="@e.Clave">@e.RazonSocial</label>
+                }
+
+                <div class="clearing"></div>
+            </div>
+        }
+        
+    </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#dvSelectorEmpresas").click(function () {
+            $("#dvSelectorEmpresasList").each(function () {
+                displaying = $(this).css("display");
+                if (displaying == "block") {
+                    $(this).fadeOut('slow', function () {
+                        $(this).css("display", "none");
+                    });
+                } else {
+                    $(this).fadeIn('slow', function () {
+                        $(this).css("display", "block");
+                    });
+                }
+            });
+
+            $("#dvSelectorEmpresasList").show();
+            setTimeout(function () {
+                $('#dvSelectorEmpresasList').on('mouseenter', function () {
+                    $('body').off('click');
+                });
+                $('#dvSelectorEmpresasList').on('mouseleave', function () {
+                    $('body').on('click', function () {
+                        $('#dvSelectorEmpresasList').css('display', 'none');
+                        //$('#dvSelectorEmpresasList').html('');
+                        $('body').off('click');
+                    })
+                });
+            }, 200);
+        });
+
+        $("label.empresaItem").click(function () {
+            doSubmit('@Url.Action("SeleccionarEmpresa", "Empresa")', 'POST', { 'key': $(this).attr('key') });
+        });
+    });
+  </script>

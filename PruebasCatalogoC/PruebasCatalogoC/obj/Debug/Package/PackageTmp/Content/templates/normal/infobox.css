@@ -1,0 +1,15 @@
+﻿
+.infocontainer
+{
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    border:1px solid #ccc;
+}
+.infocontainer .infocontainertitle
+{
+    
+}
+.infocontainer .infocontainertitle .infocontainerbody
+{
+}

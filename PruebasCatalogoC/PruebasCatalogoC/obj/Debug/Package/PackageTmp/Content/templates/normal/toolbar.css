@@ -1,0 +1,114 @@
+﻿
+/* Estilos para la barra de herramientas del encabezado */
+.toolbarheader
+{
+	width:100%;
+	background:transparent;
+	color:#217ebd;
+	font-size:0.9em;
+	/*font-family: Tahoma Arial;*/
+}
+.toolbarheader ul
+{
+	list-style:none;
+	line-height:40px;
+	padding:0;
+	margin:0;
+}
+.toolbarheader a
+{
+	color:#217ebd;
+	text-decoration:none;
+	display:block;
+}
+.toolbarheader ul > li
+{
+	display:inline-block;
+	padding:0 15px;
+}
+.toolbarheader ul > li:hover
+{
+	background: #f0f2f4;
+}
+
+.toolbarheader ul > li:hover > ul.submenu
+{
+	display:block;
+}
+.toolbarheader ul.submenu
+{
+	display:none;
+	list-style:none;
+	line-height:40px;
+	position:absolute;
+	z-index:100;
+	background:#fff;
+	margin: 0 0 0 -15px;
+	min-width:200px;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.22) !important;
+}
+.toolbarheader .submenu > li
+{
+	display:block;
+}
+.toolbarheader ul.submenu li > .submenu
+{
+	right:0px;
+}
+/* Terminan los estilos para la barra de herramientas del encabezado */
+
+
+div.toolbar
+{
+    text-align:left;
+    height:36px;
+    margin-bottom:5px;
+}
+
+div.toolbar *
+{
+
+}
+
+div.toolbar div.botonsep
+{
+    background-color:#bae4fa;
+    width:1px;
+    position:relative;
+}
+div.toolbar div.boton
+{
+    display:inline-block;
+}
+div.toolbar div.boton.dropdown:hover ul
+{
+	display:block;
+}
+div.toolbar div.boton ul
+{
+    list-style:none;
+    background:#fff;
+    position:absolute;
+    text-align:left;
+    z-index:100;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.22) !important;
+    display:none;
+    color:#217ebd;
+}
+div.toolbar div.boton:last-child ul
+{
+	right:23px;
+}
+
+div.toolbar div.boton ul > li
+{
+    border:none;
+    padding:10px;
+    min-width:150px;    
+}
+div.toolbar div.boton ul > li:hover
+{
+	cursor:pointer;
+	background: #f0f2f4;
+}
+

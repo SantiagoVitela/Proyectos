@@ -1,0 +1,160 @@
+﻿@{
+    Layout = null;
+}
+
+@{
+    PruebasCatalogoC.Vo.SessionContextVO ses = null;
+    var o = Session["sessionContext"];
+    if (o != null)
+    {
+        ses = (PruebasCatalogoC.Vo.SessionContextVO)o;
+    }
+    else
+    {
+        ses = new PruebasCatalogoC.Vo.SessionContextVO();
+    }
+}
+
+    <div id="dvMenuPanel" class="dvMenuPanel" style="display:none;">
+
+
+       
+            <div class="menuSection" id="secventas">
+                <div class="header">
+                    @*<img src="@Url.Content("~/Content/templates/normal/imagenes/emit-izq.png")" alt="e" />*@
+                    <label class="caption">Ventas</label>
+                    
+                </div>
+
+                <span id="mnuventas" class="item">Ventas</span>
+                
+                <div class="clearing"></div>
+            </div>
+           <div class="menuSection" id="seccatalogos">
+                <div class="header">
+                    @*<img src="@Url.Content("~/Content/templates/normal/imagenes/emit-izq.png")" alt="e" />*@
+                    <label class="caption">Catalogos</label>
+                    
+                </div>
+
+                <span id="mnuclientes" class="item">Clientes</span>
+                <span id="mnuarticulos" class="item">Articulos</span>
+                <span id="mnuconfiguracion" class="item">Configuración</span>
+                
+                <div class="clearing"></div>
+            </div>
+    </div>
+    
+    @if (PageData[0] != PruebasCatalogoC.Vo.VistaSistema.CapturaEmisorRequerido)
+    {
+
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $('div.menuSection .header').click(function () {
+                    if ($(this).hasClass('opened')) {
+                        $(this).removeClass('opened');
+                        $(this).addClass('closed');
+
+                        $(this).parent().find('.item').hide();
+                    } else {
+                        $(this).removeClass('closed');
+                        $(this).addClass('opened');
+                        $(this).parent().find('.item').show();
+                    }
+                });
+
+                $('div.menuSection .header').addClass('opened');
+                $('div.menuSection .header').click();
+
+                var accionesNegadas = null;
+                var tipoVista = '@((int)(PageData[0] ?? 2))';
+
+
+
+
+
+                $('#mnuventas').click(function (e) {
+                    goToUrl('@Url.Action("List", "Venta", new { area = "" })');
+                });
+
+
+                $('#mnuclientes').click(function (e) {
+                    goToUrl('@Url.Action("List", "Cliente", new { area = "" })');
+                });
+
+                $('#mnuarticulos').click(function (e) {
+                    goToUrl('@Url.Action("List", "Articulo", new { area = "" })');
+                });
+
+                $('#mnuconfiguracion').click(function (e) {
+                    goToUrl('@Url.Action("Editar", "Configuracion", new { area = "" })');
+                });
+
+
+                // El siguiente bloque es para manter la opción del menú seleccionada
+                var ac = '@ses.Accion'
+                var item = $('.item[ac="' + ac + '"]');
+                if (item) {
+                    $(item).parent().find('.header').click();
+                    $(item).parent().find('.header').addClass('active');
+                    $(item).addClass('clicked');
+                }
+
+                var obj = {};
+                obj.ct = 3; // La categoría 3
+                var con = new Contenedor();
+
+                $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+                    var originalComplete = options.complete;
+                    options.complete = function (jqXHR, reqs) {
+
+                        if (jqXHR.getResponseHeader('NOT_LOGGED') == '1') {
+                            loading();
+                            window.location.reload();
+                        }
+
+                        if (options.dataType != 'json' || options.validaAcciones) {
+                            isPetitionAPage = true;
+                        }
+
+                        if (originalComplete != null) {
+                            originalComplete(jqXHR, reqs);
+                        }
+                    };
+                });
+
+                $(document).ajaxStop(function () {
+                    if (isPetitionAPage) {
+                        if (accionesNegadas != null) {
+                            $(accionesNegadas).each(function () {
+                                $('*[ac="' + this.toString() + '"]').hide();
+                                $('*[ac="' + this.toString() + '"]').remove();
+                            });
+                            $('div [class=menuSection]').each(function () {
+                                var span = $(this).find('span');
+                                if (span.length == 0) {
+                                    $(this).remove();
+                                }
+                            });
+                        }
+                    }
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetAccionesNegadas", "Cuenta", new { area = "" })',
+                    async: false,
+                    dataType: 'json',
+                    validaAcciones: true,
+                    success: function (data) { accionesNegadas = data; }
+                });
+
+                $('#dvMenuPanel').show();
+            });
+   
+        </script>
+
+    }
+    

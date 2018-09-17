@@ -1,40 +1,31 @@
 ﻿var ALERT_BUTTON_TEXT = "ACEPTAR";
 var divOculto;
 
-var BUTTONS = {
-    OK : 0,
-    CANCEL : 1
-};
-Object.freeze(BUTTONS)
 
 var myCallback = "ll";
 
-function dialog(tipo, titulo, mensaje, callback1, callback2, buttonDefault) {
-
-    if (buttonDefault == undefined) {
-        buttonDefault = BUTTONS.OK;
-    }
+function dialog(tipo, titulo, mensaje, callback1, callback2) {
 
     if (isNaN(tipo)) {
         switch (tipo) {
             case "informativo":
                 mostrarMensajeInformativo(titulo, mensaje, callback1);
-                //openTransparent();
+                openTransparent();
                 myCallback = callback1;
                 break;
             case "error":
                 mostrarMensajeError(titulo, mensaje, callback1);
-                //openTransparent();
+                openTransparent();
                 myCallback = callback1;
                 break;
             case "decisivo1":
-                mostrarMensajeDecisivoAceptarCancelar(titulo, mensaje, callback1, callback2, buttonDefault);
-                //openTransparent();
+                mostrarMensajeDecisivoAceptarCancelar(titulo, mensaje, callback1, callback2);
+                openTransparent();
                 myCallback = callback2;
                 break;
             case "decisivo2":
-                mostrarMensajeDecisivoSiNo(titulo, mensaje, callback1, callback2, buttonDefault);
-                //openTransparent();
+                mostrarMensajeDecisivoSiNo(titulo, mensaje, callback1, callback2);
+                openTransparent();
                 myCallback = callback2;
                 break;
         }
@@ -42,20 +33,20 @@ function dialog(tipo, titulo, mensaje, callback1, callback2, buttonDefault) {
         var tipoN = Number(tipo);
         switch (tipoN) {
             case 2:
-                mostrarMensajeError(titulo, mensaje, callback1, buttonDefault);
-                //openTransparent();
+                mostrarMensajeError(titulo, mensaje, callback1);
+                openTransparent();
                 myCallback = callback1;
                 break;
             default:
-                mostrarMensajeInformativo(titulo, mensaje, callback1, buttonDefault);
-                //openTransparent();
+                mostrarMensajeInformativo(titulo, mensaje, callback1);
+                openTransparent();
                 myCallback = callback1;
         }
     }
 }
 
 function removeCustomAlertPopUp() {
-    //closeTransparent();
+    closeTransparent();
     $('#modalContainer').remove();
 }
 
@@ -65,276 +56,239 @@ function mostrarMensajeInformativo(titulo, mensaje, callback) {
     if (d.getElementById("modalContainer")) {
         return;
     }
+
+    var strDialogo = '<div class="dialogo">' +
+                     '   <div class="titulo">' +
+                     '      <div class="etiquetatitulo">' + titulo + '</div>' +
+                     '   </div>' +
+                     '   <div class="contenidodialogo">' +
+                     '      <div class="iconodialogo" />' +
+                     '      <div class="mensajedialogo" />' +
+                     '  </div>' +
+                     '  <div class="botonesdialogo">' +
+                     '     <input type="button" id="closeBtn">' +
+                     '  </div>' +
+                     '</div>';
+
     mObj = d.getElementsByTagName("body")[0].appendChild(d.createElement("div"));
     mObj.id = "modalContainer";
     mObj.style.height = document.documentElement.scrollHeight + "px";
 
-    alertObj = mObj.appendChild(d.createElement("div"));
-    alertObj.id = "alertBox";
-    document.body.appendChild(mObj);
-    divVisible = alertObj.appendChild(d.createElement("div"));
-    divVisible.id = "divVisible";
-    divTitulo = divVisible.appendChild(d.createElement("div"));
-    divTitulo.id = "divTitulo";
-    divTitulo.innerHTML = "&nbsp &nbsp " + titulo;
-    divTitulo.style.align = "middle";
-    divContContMensaje = divVisible.appendChild(d.createElement("div"));
-    divContContMensaje.id = "divContContMensaje";
-    divContMensaje = divContContMensaje.appendChild(d.createElement("div"));
-    divContMensaje.id = "divContMensaje";
-    divImagen = divContMensaje.appendChild(d.createElement("div"));
-    divImagen.id = "divImagen";
-    $("#divImagen").addClass("mensajeInformativo");
+    $('body').append(mObj);
 
-    divMensaje = divContMensaje.appendChild(d.createElement("div"));
-    divMensaje.id = "divMensaje";
-    divMensaje.innerHTML = mensaje;
-    divBotones = divVisible.appendChild(d.createElement("div"));
-    divBotones.id = "divBotones";
-    btn = divBotones.appendChild(d.createElement("button"));
-    btn.id = "closeBtn";
-    btn.innerHTML = ALERT_BUTTON_TEXT;
-    btn.href = "#";
+    $('#modalContainer').append(strDialogo);
 
-    //btn.onclick = function () { removeCustomAlertPopUp(); eval(callback); var myCallback = ""; return false; };
-    btn.onclick = function (e) {
-        removeCustomAlertPopUp();
-        var esFunc = $.isFunction(callback);
-        if (esFunc) { callback(); } else eval(callback);
-        var myCallback = "";
-        return false;
-    };
+    $('#modalContainer div.mensajedialogo').html(mensaje);
+    $('#modalContainer div.iconodialogo').addClass('mensajeInformativo');
+    $('#modalContainer #closeBtn').attr('value', '  ' + ALERT_BUTTON_TEXT + '  ');
+    $('#modalContainer #closeBtn').click(function (e) { removeCustomAlertPopUp(); eval(callback); var myCallback = ""; return false; });
+    $("#modalContainer #closeBtn").focus();
 
-    ancho = alertObj.style.height;
-    alertObj.style.left = ((d.documentElement.scrollWidth - alertObj.offsetWidth) + ancho) / 2 + "px";
-//    dialogmask.style.height = '5000px';
-    $("#closeBtn").focus();
+    var anchoPantalla = d.documentElement.scrollWidth;
+    var altoPantalla = d.documentElement.scrollHeight;
+    var ancho = $('#modalContainer div.dialogo').css('width');
+    var alto = $('#modalContainer div.dialogo').css('height');
+
+    ancho = ancho.replace('px', '');
+    alto = alto.replace('px', '');
+
+    $('#modalContainer div.dialogo').css('left', ((anchoPantalla - ancho) / 2) + 'px');
+    //$('#modalContainer div.dialogo').css('top', (((altoPantalla - alto) / 2) - 50) + 'px');
+
 }
 
 function mostrarMensajeError(titulo, mensaje, callback) {
     d = document;
     if (d.getElementById("modalContainer")) return;
+
+    var strDialogo = '<div class="dialogo">' +
+                     '   <div class="titulo">' +
+                     '      <div class="etiquetatitulo">' + titulo + '</div>' +
+                     '   </div>' +
+                     '   <div class="contenidodialogo">' +
+                     '      <div class="iconodialogo" />' +
+                     '      <div class="mensajedialogo" />' +
+                     '  </div>' +
+                     '  <div class="botonesdialogo">' +
+                     '     <input type="button" id="closeBtn">' +
+                     '  </div>' +
+                     '</div>';
+
     mObj = d.getElementsByTagName("body")[0].appendChild(d.createElement("div"));
     mObj.id = "modalContainer";
     mObj.style.height = document.documentElement.scrollHeight + "px";
-    alertObj = mObj.appendChild(d.createElement("div"));
-    alertObj.id = "alertBox";
-    document.body.appendChild(mObj);
-    divVisible = alertObj.appendChild(d.createElement("div"));
-    divVisible.id = "divVisible";
-    divTitulo = divVisible.appendChild(d.createElement("div"));
-    divTitulo.id = "divTitulo";
-    divTitulo.innerHTML = "&nbsp &nbsp " + titulo;
-    divTitulo.style.align = "middle";
-    divContContMensaje = divVisible.appendChild(d.createElement("div"));
-    divContContMensaje.id = "divContContMensaje";
-    divContMensaje = divContContMensaje.appendChild(d.createElement("div"));
-    divContMensaje.id = "divContMensaje";
-    divImagen = divContMensaje.appendChild(d.createElement("div"));
-    divImagen.id = "divImagen";
-    $("#divImagen").addClass("mensajeError");
 
-    divMensaje = divContMensaje.appendChild(d.createElement("div"));
-    divMensaje.id = "divMensaje";
-    divMensaje.innerHTML = mensaje;
-    divBotones = divVisible.appendChild(d.createElement("div"));
-    divBotones.id = "divBotones";
-    btn = divBotones.appendChild(d.createElement("button"));
-    btn.id = "closeBtn";
-    btn.innerHTML = ALERT_BUTTON_TEXT;
-    btn.href = "#";
-//    btn.onclick = function () {
-//        removeCustomAlertPopUp();
-//        eval(callback);
-//        var myCallback = "";
-//        return false;
-//    };
-    btn.onclick = function (e) {
+    $('body').append(mObj);
+
+    $('#modalContainer').append(strDialogo);
+
+    $('#modalContainer div.mensajedialogo').html(mensaje);
+    $('#modalContainer div.iconodialogo').addClass('mensajeInformativo');
+    $('#modalContainer #closeBtn').attr('value', '  ' + ALERT_BUTTON_TEXT + '  ');
+    //$('#modalContainer #closeBtn').click(function (e) { removeCustomAlertPopUp(); eval(callback); var myCallback = ""; return false; });
+
+    $('#modalContainer #closeBtn').click(function (e) {
         removeCustomAlertPopUp();
         var esFunc = $.isFunction(callback);
         if (esFunc) { callback(); } else eval(callback);
         var myCallback = "";
         return false;
-    };
-    divOculto = alertObj.appendChild(d.createElement("div"));
-    divOculto.id = "divOculto";
-    $("#divOculto").width(alertObj.offsetWidth);
-    msgOculto = divOculto.appendChild(d.createElement("p"));
-    msgOculto.id = "msgOculto";
-    divOculto.style.height = '5px';
-    ancho = alertObj.style.height;
-    alertObj.style.left = ((d.documentElement.scrollWidth - alertObj.offsetWidth) + ancho) / 2 + "px";
-//    dialogmask.style.height = '5000px';
-    $("#closeBtn").focus();
+    });
+
+    $("#modalContainer #closeBtn").focus();
+
+    var anchoPantalla = d.documentElement.scrollWidth;
+    var altoPantalla = d.documentElement.scrollHeight;
+    var ancho = $('#modalContainer div.dialogo').css('width');
+    var alto = $('#modalContainer div.dialogo').css('height');
+
+    ancho = ancho.replace('px', '');
+    alto = alto.replace('px', '');
+
+    $('#modalContainer div.dialogo').css('left', ((anchoPantalla - ancho) / 2) + 'px');
+    //$('#modalContainer div.dialogo').css('top', (((altoPantalla - alto) / 2) - 50) + 'px');
+
 }
 
-function mostrarMensajeDecisivoSiNo(titulo, mensaje, nombreFuncionSi, nombreFuncionNo, buttonDefault) {
+function mostrarMensajeDecisivoSiNo(titulo, mensaje, nombreFuncionSi, nombreFuncionNo) {
     d = document;
     if (d.getElementById("modalContainer")) return false;
+
+    var strDialogo = '<div class="dialogo">' +
+                     '   <div class="titulo">' +
+                     '      <div class="etiquetatitulo">' + titulo + '</div>' +
+                     '   </div>' +
+                     '   <div class="contenidodialogo">' +
+                     '      <div class="iconodialogo" />' +
+                     '      <div class="mensajedialogo" />' +
+                     '  </div>' +
+                     '  <div class="botonesdialogo">' +
+                     '          <input type="button" id="btnSi">' +
+                     '          <input type="button" id="btnNo">' +
+                     '  </div>' +
+                     '</div>';
+
     mObj = d.getElementsByTagName("body")[0].appendChild(d.createElement("div"));
     mObj.id = "modalContainer";
     mObj.style.height = document.documentElement.scrollHeight + "px";
 
-    alertObj = mObj.appendChild(d.createElement("div"));
-    alertObj.id = "alertBox";
-    document.body.appendChild(mObj);
-    divVisible = alertObj.appendChild(d.createElement("div"));
-    divVisible.id = "divVisible";
-    divTitulo = divVisible.appendChild(d.createElement("div"));
-    divTitulo.id = "divTitulo";
-    divTitulo.innerHTML = "&nbsp &nbsp " + titulo;
-    divTitulo.style.align = "middle";
-    divContContMensaje = divVisible.appendChild(d.createElement("div"));
-    divContContMensaje.id = "divContContMensaje";
-    divContMensaje = divContContMensaje.appendChild(d.createElement("div"));
-    divContMensaje.id = "divContMensaje";
-    divImagen = divContMensaje.appendChild(d.createElement("div"));
-    divImagen.id = "divImagen";
-    $("#divImagen").addClass("mensajeInformativo");
+    $('body').append(mObj);
 
-    divMensaje = divContMensaje.appendChild(d.createElement("div"));
-    divMensaje.id = "divMensaje";
-    divMensaje.innerHTML = mensaje;
-    divBotones = divVisible.appendChild(d.createElement("div"));
-    divBotones.id = "divBotones";
-    btn1 = divBotones.appendChild(d.createElement("button"));
-    btn1.id = "btnSi";
-    btn1.innerHTML = "SI";
-    btn1.href = "#";
-    btn1.onclick = function (e) {
+    $('#modalContainer').append(strDialogo);
+
+    $('#modalContainer div.mensajedialogo').html(mensaje);
+    $('#modalContainer div.iconodialogo').addClass('mensajeInformativo');
+
+    $('#modalContainer #btnSi').attr('value', '  SI  ');
+    $('#modalContainer #btnSi').click(function (e) {
         removeCustomAlertPopUp();
         var esFunc = $.isFunction(nombreFuncionSi);
         if (esFunc) { nombreFuncionSi(); } else eval(nombreFuncionSi);
         var myCallback = "";
-        return false;
-    };
-    btn2 = divBotones.appendChild(d.createElement("button"));
-    btn2.id = "btnNo";
-    btn2.innerHTML = "NO";
-    btn2.href = "#";
-    btn2.onclick = function (e) {
+        return true;
+    });
+    $("#modalContainer #btnSi").focus();
+
+    $('#modalContainer #btnNo').attr('value', '  NO  ');
+    $('#modalContainer #btnNo').click(function (e) {
         removeCustomAlertPopUp();
         var esFunc = $.isFunction(nombreFuncionNo);
-        if (esFunc) { nombreFuncionNo(); } else eval(nombreFuncionNo);
+        if (esFunc) nombreFuncionNo(); else eval(nombreFuncionNo);
         var myCallback = "";
-        return false;
-    };
-    divOculto = alertObj.appendChild(d.createElement("div"));
-    divOculto.id = "divOculto";
-    $("#divOculto").width(alertObj.offsetWidth);
-    msgOculto = divOculto.appendChild(d.createElement("p"));
-    msgOculto.id = "msgOculto";
-    divOculto.style.height = '5px'
-    ancho = alertObj.style.height;
-    alertObj.style.left = ((d.documentElement.scrollWidth - alertObj.offsetWidth) + ancho) / 2 + "px";
-    alertObj.style.top = "0px";
+        return true;
+    });
+    $("#modalContainer #btnNo").focus();
 
-    var wscr = $(window).width();
-    var hscr = $(window).height();
-    viewportwidth = window.innerWidth,
-    viewportheight = window.innerHeight
+    var anchoPantalla = d.documentElement.scrollWidth;
+    var altoPantalla = d.documentElement.scrollHeight;
+    var ancho = $('#modalContainer div.dialogo').css('width');
+    var alto = $('#modalContainer div.dialogo').css('height');
 
-    if (buttonDefault == BUTTONS.OK) {
-        $("#btnSi").focus();
-    } else {
-        $("#btnNo").focus();
-    }
+    ancho = ancho.replace('px', '');
+    alto = alto.replace('px', '');
+
+    $('#modalContainer div.dialogo').css('left', ((anchoPantalla - ancho) / 2) + 'px');
+    //$('#modalContainer div.dialogo').css('top', (((altoPantalla - alto) / 2) - 50) + 'px');
+
 }
 
-function mostrarMensajeDecisivoAceptarCancelar(titulo, mensaje, nombreFuncionSi, nombreFuncionNo, buttonDefault) {
+function mostrarMensajeDecisivoAceptarCancelar(titulo, mensaje, nombreFuncionSi, nombreFuncionNo) {
     d = document;
     if (d.getElementById("modalContainer")) return false;
+
+    var strDialogo = '<div class="dialogo">' +
+                     '   <div class="titulo">' +
+                     '      <div class="etiquetatitulo">' + titulo + '</div>' +
+                     '   </div>' +
+                     '   <div class="contenidodialogo">' +
+                     '      <div class="iconodialogo" />' +
+                     '      <div class="mensajedialogo" />' +
+                     '  </div>' +
+                     '  <div class="botonesdialogo">' +
+                     '          <input type="button" id="btnAc">' +
+                     '          <input type="button" id="btnCa">' +
+                     '  </div>' +
+                     '</div>';
+
     mObj = d.getElementsByTagName("body")[0].appendChild(d.createElement("div"));
     mObj.id = "modalContainer";
     mObj.style.height = document.documentElement.scrollHeight + "px";
 
-    alertObj = mObj.appendChild(d.createElement("div"));
-    alertObj.id = "alertBox";
-    document.body.appendChild(mObj);
-    divVisible = alertObj.appendChild(d.createElement("div"));
-    divVisible.id = "divVisible";
-    divTitulo = divVisible.appendChild(d.createElement("div"));
-    divTitulo.id = "divTitulo";
-    divTitulo.innerHTML = "&nbsp &nbsp " + titulo;
-    divTitulo.style.align = "middle";
-    divContContMensaje = divVisible.appendChild(d.createElement("div"));
-    divContContMensaje.id = "divContContMensaje";
-    divContMensaje = divContContMensaje.appendChild(d.createElement("div"));
-    divContMensaje.id = "divContMensaje";
-    divImagen = divContMensaje.appendChild(d.createElement("div"));
-    divImagen.id = "divImagen";
-    $("#divImagen").addClass("mensajeInformativo");
+    $('body').append(mObj);
 
-    divMensaje = divContMensaje.appendChild(d.createElement("div"));
-    divMensaje.id = "divMensaje";
-    divMensaje.innerHTML = mensaje;
-    divBotones = divVisible.appendChild(d.createElement("div"));
-    divBotones.id = "divBotones";
-    btn1 = divBotones.appendChild(d.createElement("button"));
-    btn1.id = "btnAc";
-    btn1.innerHTML = "ACEPTAR";
-    btn1.href = "#";
-    btn1.onclick = function (e) {
+    $('#modalContainer').append(strDialogo);
+
+    $('#modalContainer div.mensajedialogo').html(mensaje);
+    $('#modalContainer div.iconodialogo').addClass('mensajeInformativo');
+
+    $('#modalContainer #btnAc').attr('value', '  ACEPTAR  ');
+    $('#modalContainer #btnAc').click(function (e) {
         removeCustomAlertPopUp();
         var esFunc = $.isFunction(nombreFuncionSi);
-        if (esFunc) { nombreFuncionSi(); } else eval(nombreFuncionSi);
+        if (esFunc) nombreFuncionSi(); else eval(nombreFuncionSi);
         var myCallback = "";
-        return false;
-    };
+        return true;
+    });
+    $("#modalContainer #btnAc").focus();
 
-    btn2 = divBotones.appendChild(d.createElement("button"));
-    btn2.id = "btnCa";
-    btn2.innerHTML = "CANCELAR";
-    btn2.href = "#";
-    btn2.onclick = function (e) {
+    $('#modalContainer #btnCa').attr('value', '  CANCELAR  ');
+    $('#modalContainer #btnCa').click(function (e) {
         removeCustomAlertPopUp();
         var esFunc = $.isFunction(nombreFuncionNo);
-        if (esFunc) { nombreFuncionNo(); } else eval(nombreFuncionNo);
+        if (esFunc) nombreFuncionNo(); else eval(nombreFuncionNo);
         var myCallback = "";
-        return false;
-    };
-    divOculto = alertObj.appendChild(d.createElement("div"));
-    divOculto.id = "divOculto";
-    $("#divOculto").width(alertObj.offsetWidth);
-    msgOculto = divOculto.appendChild(d.createElement("p"));
-    msgOculto.id = "msgOculto";
-    divOculto.style.height = '5px'
-    ancho = alertObj.style.height;
-    alertObj.style.left = ((d.documentElement.scrollWidth - alertObj.offsetWidth) + ancho) / 2 + "px";
-    alertObj.style.top = "0px";
+        return true;
+    }); $("#modalContainer #btnCa").focus();
 
-    var wscr = $(window).width();
-    var hscr = $(window).height();
-    viewportwidth = window.innerWidth,
-    viewportheight = window.innerHeight
+    var anchoPantalla = d.documentElement.scrollWidth;
+    var altoPantalla = d.documentElement.scrollHeight;
+    var ancho = $('#modalContainer div.dialogo').css('width');
+    var alto = $('#modalContainer div.dialogo').css('height');
 
-    if (buttonDefault == BUTTONS.OK) {
-        $("#btnAc").focus();
-    } else {
-        $("#btnCa").focus();
-    }
+    ancho = ancho.replace('px', '');
+    alto = alto.replace('px', '');
+
+    $('#modalContainer div.dialogo').css('left', ((anchoPantalla - ancho) / 2) + 'px');
+    //$('#modalContainer div.dialogo').css('top', (((altoPantalla - alto) / 2) - 50) + 'px');
 }
 
-function callkeydownhandler(evnt) {
-    var ev = (evnt) ? evnt : event;
+function callkeydownhandler(ev) {
+
     var code = (ev.which) ? ev.which : ev.keyCode;
     if (code == 27) {
-        if($('#alertBox').length > 0){
+        ev.preventDefault();
+        if ($('#modalContainer div.dialogo').length > 0) {
             removeCustomAlertPopUp();
-            eval(myCallback); 
+            eval(myCallback);
             return false;
-        } else if (opened != null && opened != lastOpened && !dialogCerrado) {
-
-            $('#' + opened + '').dialog('close');
-            dialogCerrado = false;
-            lastOpened = null;
+        } else if (opened != null) {
+            $('#' + opened).dialog('close');
         }
-        dialogCerrado = false;
     }
 }
 
 if (window.document.addEventListener) {
-    window.document.addEventListener("keydown", callkeydownhandler, false);
+    window.document.addEventListener("keydown", function (e) { callkeydownhandler(e); }, false);
 } else {
-    window.document.attachEvent("onkeydown", callkeydownhandler);
+    window.document.attachEvent("onkeydown", function (e) { callkeydownhandler(e); });
 }

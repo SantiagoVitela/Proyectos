@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Directorio Activo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+   
+<div class="formulario">
+    <div class="formulariocaptura">
+        @Html.Partial("ArticuloForm")
+    </div>
+    <div class="clearing"></div>
+</div>
+
+<script type="text/javascript">
+
+    var esteArticuloForm = null;
+
+    $(document).ready(function () {
+        esteArticuloForm = new ArticuloForm();
+        esteArticuloForm.inicializa();
+        esteArticuloForm.activaModoLectura('@ViewBag.Id');
+    });
+
+</script>

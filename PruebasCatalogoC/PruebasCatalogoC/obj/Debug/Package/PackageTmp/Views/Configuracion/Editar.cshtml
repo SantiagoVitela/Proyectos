@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Configuracion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+   
+<div class="formulario">
+    <div class="formulariocaptura">
+        @Html.Partial("ConfiguracionForm")
+    </div>
+    <div class="clearing"></div>
+</div>
+
+<script type="text/javascript">
+
+    var esteConfiguracionForm = null;
+
+    $(document).ready(function () {
+        esteConfiguracionForm = new ConfiguracionForm();
+        esteConfiguracionForm.inicializa();
+        esteConfiguracionForm.activaModoEdicion('@ViewBag.Id');
+    });
+
+</script>

@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Ventas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="formulario">
+
+    @Html.Partial("VentaListForm")
+    
+    <div class="clearing"></div>
+</div>
+
+<script type="text/javascript">
+
+    var esteVentaListForm = null;
+
+    $(document).ready(function () {
+        esteVentaListForm = new VentaListForm();
+        esteVentaListForm.inicializa();
+    });
+
+</script>

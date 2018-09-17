@@ -1,0 +1,209 @@
+﻿/***************************************************************************
+Hojas de estilo para el control de los mensajes de diálogo.
+Aqui se definen los elementos que componen una areaventana
+
+El áreaventana es el área donde se muestran los elementos con los que interactúa constantemente el usuario
+por ejemplo, formularios de captura, listas de datos, etc.
+
+El componente areaventana debe estar estructurado de la siguiente manera.
+
+        <div class="dialogo">
+            <div class="titulo">
+                <div class="etiquetatitulo">Titulo de la ventana</div>
+            </div>
+            <div class="contenidodialogo">
+                <div class="iconodialogo" />
+                <div class="mensajedialogo" />
+            </div>
+            <div class="botonesdialogo">
+                <input type="button" id="closeBtn">
+                <input type="button" id="btnNo">
+                <input type="button" id="btnAc">
+                <input type="button" id="btnCa">
+            </div>
+        </div>
+
+    Se han identificado los elementos ventana, titulo, etiquetatitulo, ayudaventana, iconayudaventana, contenidoventana
+    
+        1.- dialogo          : Es el elemento sobre el que se forma la ventana. Un div contenedor de los elementos internos.
+        2.- titulo           : Representa la barra de titulo de la ventana.
+        3.- etiquetatitulo   : Representa el estilo del texto mostrado en la barra de título de la ventana.
+        4.- contenidodialogo : Representa un contenedor de un elemento utilizado para la ayuda.
+        5.- iconodialogo     : Input button que representa el elemento que podemos utilizar para mostrar algun tipo de ayuda de la vetana.
+        6.- mensajedialogo   : Area del contenido del cuadro de diálogo.
+
+        Actualmente, no estamos utilizando los elemento 4 y 5. Estos podemos considerarlos opcionales.
+
+    Note que para poder aplicar los estilos a cada elemento, el código HTML debe estar estructurado de la manera indicada arriba.
+/***************************************************************************/
+
+#modalContainer {
+    z-index: 1;
+	background-color:transparent;
+	position:absolute;
+	width:100%;
+	height:100%;
+	top:0px;
+	left:0px;
+	z-index:10000;
+}
+
+div.dialogo
+{
+    background-color:#f9f9f9;
+    z-index: 200;
+	position:absolute;
+	width:500px;
+	/*height:210px;*/
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	/*font-family:Arial, Helvetica, sans-serif;*/
+}
+
+div.dialogo div.titulo
+{
+    width:100%;
+    height:30px;
+    background-repeat:repeat-x;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+div.dialogo div.titulo div.etiquetatitulo
+{
+    font-weight:bold;
+    font-size:16px;
+    color:#666;
+    padding: 5px 10px;
+}
+
+div.dialogo div.contenidodialogo
+{
+    width:100%;
+    position:relative;
+}
+
+div.dialogo div.contenidodialogo div.iconodialogo
+{
+    display:inline-block;
+    width:25%;
+    max-width:200px;
+    height:110px;
+    position:relative;
+}
+
+div.dialogo div.contenidodialogo div.mensajedialogo
+{
+    width:73%;
+    padding-top:10px;
+    display:inline-block;
+    font-size:11pt;
+    color: #5C5C5C;
+    min-height:110px;
+    overflow:auto;
+}
+
+div.dialogo div.contenidodialogo div.mensajeprompt
+{
+    float:left;
+    width:340px;
+    position:absolute;
+    top:25px;
+    margin-left:150px;
+    font-size:11pt;
+    color: #5C5C5C;
+    max-height:70px;
+    overflow:auto;
+}
+
+div.dialogo div.contenidodialogo div.inputprompt
+{
+    position:relative;
+    top:110px;
+    margin-left:150px;
+    width:340px;
+}
+
+div.dialogo div.botonesdialogo
+{
+    text-align: center;
+    width: 100%;
+    /*top: 155px;*/
+    /*position: absolute;*/
+    z-index: 50;
+    padding-bottom:20px;
+}
+
+div.dialogo div.botonesdialogo input[type="button"]
+{
+    height: 36px;
+    width:auto;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+div.dialogo div.botonesdialogo input[type="button"]:hover
+{
+    cursor:pointer;
+    /*background-color:#F60;*/
+    background-image:none;
+}
+
+/* Si se quiere estilizar cada boton */
+div.dialogo div.botonesdialogo #closeBtn
+{
+}
+div.dialogo div.botonesdialogo #btnSi
+{
+}
+div.dialogo div.botonesdialogo #btnNo
+{
+}
+div.dialogo div.botonesdialogo #btnAc
+{
+}
+div.dialogo div.botonesdialogo #btnCa
+{
+}
+
+
+#modalContainer .mensajeInformativo{
+    background-image:url('imagenes/messageok.png');
+    background-repeat:no-repeat;
+    background-position:center center;
+}
+/*#modalContainer .mensajeInformativo:before
+{
+	font-family:FontAwesome;
+	content:"\f29c";
+	font-size:150px;
+	color:#217ebd;
+}*/
+
+
+#modalContainer .mensajeDecisivo{    
+    background-image:url('imagenes/messagepregunta.png');
+    background-repeat:no-repeat;
+    background-position:center center;
+}
+/*#modalContainer .mensajeDecisivo:before
+{
+	font-family:FontAwesome;
+	content:"\f128";
+	font-size:150px;
+	color:#217ebd;
+}*/
+#modalContainer .mensajeError{
+    background-image:url('imagenes/messageerror.png');
+    background-repeat:no-repeat;
+    background-position:center center;
+}
+
+#modalContainer .mensajePrompt{
+    background-image:url('imagenes/messageprompt.png');
+    background-repeat:no-repeat;
+    background-position:center center;
+}

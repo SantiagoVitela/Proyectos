@@ -1,0 +1,90 @@
+﻿body {
+}
+#dvLoginForm
+{
+    width:700px;
+    margin:auto;
+    /*font-family:Tahoma;*/
+    font-family:"Open Sans", sans-serif;
+    color:#666;
+}
+#imgLogoCF
+{
+    width:390px;
+    height:330px;
+    position:absolute;
+}
+#logincontent
+{
+    margin-bottom:15px !important;width:350px;height:120px;
+}
+#EMail
+{
+    height:25px;
+    width:200px;
+    border:1px solid #ccc;
+}
+#Contrasenia
+{
+    height:25px;
+    width:200px;
+    border:1px solid #ccc;
+}
+#btnlogin
+{
+    padding:10px 50px 10px 50px !important;
+    border:none;
+    height:40px !important;
+    background-color:#1581bf;
+    color:#fff;
+    -moz-user-select: none; 
+    -khtml-user-select: none; 
+    -webkit-user-select: none; 
+    -o-user-select: none; 
+}
+#btnlogin:hover
+{
+    cursor:pointer;
+}
+#lnkRegistrate
+{
+    font-weight:bold;
+    text-decoration:none;
+}
+ .loginsection
+ {
+     width:47%;
+     margin-right:15px;
+     float:left;
+ }
+ 
+ .loginsection.izquierda
+ {
+     text-align:right;
+ }
+
+.inputcontentlogin
+{
+    color:#1583C0;
+    float:right;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+.textogris
+{
+    font-size:12px;
+    color:#666 !important;
+}
+.dvlabellogin
+{
+    width:100px;
+    font-size:12px;
+    float:left;
+    padding-right:10px;
+    padding-top:5px;
+}
+.dvinputlogin
+{
+    float:left;
+}
+        

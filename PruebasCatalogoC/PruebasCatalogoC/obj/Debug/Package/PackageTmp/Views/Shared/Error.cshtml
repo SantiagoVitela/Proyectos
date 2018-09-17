@@ -1,10 +1,15 @@
-﻿@model System.Web.Mvc.HandleErrorInfo
-
-@{
-    ViewBag.Title = "Error";
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<hgroup class="title">
-    <h1 class="error">Error.</h1>
-    <h2 class="error">Error al procesar la solicitud.</h2>
-</hgroup>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Error</title>
+</head>
+<body>
+    <h2 style="color:#777;">
+        @ViewBag.Error
+    </h2>
+</body>
+</html>

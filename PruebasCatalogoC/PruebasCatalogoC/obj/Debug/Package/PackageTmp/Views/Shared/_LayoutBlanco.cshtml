@@ -1,0 +1,86 @@
+﻿@using BaseCF.Controllers
+@{
+    var controller = ViewContext.Controller as BaseController;
+    controller.SetAntiForgeryCookie();
+    var xtoken = HttpContext.Current.Response.Headers["X-TOKEN"];
+} 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link rel="icon" type="image/png" href="@Url.Content("~/Content/images/CF.png")" />
+    <link rel="shortcut icon" type="image/x-icon" href="@Url.Content("~/Content/images/CF.ico")" />
+
+    @{string nV = "20180713";}
+
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/templates/normal/site.css"  + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/jquery/jquery-ui.css"  + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/menuprincipal.css"  + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/formulario.css"  + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/modal.css"  + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/grid.css"  + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/toolbar.css"  + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/cfdform.css"  + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/algoriaDialog.css"  + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    
+    <link href="@Url.Content("~/Content/templates/normal/Listas.css"  + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    
+    <link href="@Url.Content("~/Content/templates/normal/algoriaNotify.css"  + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/menuLateral.css"  + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/cfdgrid.css"  + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/templates/normal/jquery.qtip.min.css"  + "?v=" + nV)" rel="stylesheet" type="text/css" />
+    @*<link href="@Url.Content("~/Content/multiselect/css/jquery.multiselect.css"  + "?v=" + nV)" rel="stylesheet" type="text/css" />*@
+
+    <script src="@Url.Content("~/Scripts/jquery-1.8.2.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.10.1.custom.min.js"  + "?v=" + nV)" type="text/javascript"></script>
+@*    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.21.custom.min.js"  + "?v=" + nV)" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/ajaxfileupload.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaFormulario.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaVentana.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaModal.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaCombo.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/stringBuilder.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Lista.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.funciones.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaFormatos.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaCalendar.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaTextBox.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui.datepicker-es.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.peticion.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.lazyloadgrid.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.numerictextbox.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaSubmit.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaDialog.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaUploader.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/algoriaNotify.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.qtip.min.js"  + "?v=" + nV)" type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Content/multiselect/js/jquery.multiselect.js"  + "?v=" + nV)" type="text/javascript"></script>*@
+
+    <script src="@Url.Content("~/Scripts/jquery.easing.1.3.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.nicescroll.min.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.nicescroll.plus.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-paged-scroll.min.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/funcionesIE8.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ckeditor.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/adapterCkeditor.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/funcionesExtras.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/multiselect/js/jquery.multiselect.js"  + "?v=" + nV)" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/multiselect/css/jquery.multiselect.css"  + "?v=" + nV)" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <input type="hidden" id="txtUrlHelper" value="@Url.Action("GetHelp", "Base")" />
+
+    @RenderBody()
+            
+</body>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        xtk = '@xtoken';
+        //console.log('layoutblanco xtk: ' + xtk);
+    });
+
+</script>
+</html>

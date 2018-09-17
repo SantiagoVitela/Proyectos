@@ -1,0 +1,319 @@
+﻿/***************************************************************************
+Hojas de estilo para el control Grid.
+La clase principal se llama gridPaginado y el está pensado para usar un control div.
+Dentro del div, debe haber otro div con la clase container, y dentro de éste último, 
+debe haber una tabla. La definición de las clases se ha hecho en orden de aparicion dentro del control.
+Es decir, 
+        div - gridPaginado
+            div - container
+                table 
+                    th
+                    tbody
+                    td
+                    td.selected
+                    td.last
+                    td.over
+                    td.odd
+                    a
+            div - paginacion
+                span
+                ul               (Elemento contenedor de la colección de páginas disponibles)
+                    li           (Elemento contenedor de un numero de pagina específico)
+                        a        (numero de pagina disponible)
+                        a.activo (numero de pagina seleccionada)
+            legend
+            a
+            img.ascendente
+            img.descendente
+
+Estos son los estilos para cada elemento dentro del control grid
+/***************************************************************************/
+
+/* Estilos para el grid en general */
+.gridPaginado
+{
+    border:1px solid #ddd;
+    min-height:40px;
+    background-color:#f0f2f4;
+    border-radius:5px;
+}
+
+.gridPaginado .generalgrid
+{   
+     width: 100%;
+}
+
+.gridPaginado td:not(.trbusqueda)
+{
+    -webkit-touch-callout: none;
+    /*-webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;*/
+}
+
+/* Estilos para la tabla en general*/
+.gridPaginado .generalgrid .container {
+    width: 100%;
+}
+
+.gridPaginado .container table {
+    width: 100%;
+    border-collapse: collapse;
+    border-width:0pt;
+}
+
+.gridPaginado .container table thead
+{
+    /*background-color:#f0f0f0;*/
+}
+
+/* Estilos para el encabezado de la tabla */
+.gridPaginado .container table th {
+    text-align: left;
+    vertical-align:middle;
+    color: #217ebd !important;
+    padding:10px 5px 5px;
+}
+
+.gridPaginado .container table th:hover 
+{
+    cursor:pointer;
+    background-color:#ddd;
+    background-image:none;
+}
+
+.gridPaginado tbody tr td input{
+    width:100%;
+    padding-right:32px !important;
+}
+
+.gridPaginado tbody tr td > div.searchbox {
+    display : inline-block;
+    position: relative;
+    right : 17px;
+    background-repeat : no-repeat;
+    color:#ccc;
+}
+.gridPaginado tbody tr td > div.searchbox:hover 
+{
+	cursor:pointer;
+	color:#666;
+}
+
+.gridPaginado tbody tr td > div.searchandcleanbox{
+    display : inline-block;
+    position: relative;
+    right : 27px;
+    background-repeat : no-repeat;
+    color:#ccc;
+}
+.gridPaginado tbody tr td > div.searchandcleanbox:hover
+{
+	cursor:pointer;
+	color:#666;
+}
+.gridPaginado tbody tr td > div.cleanbox{
+    display : inline-block;
+    position: relative;
+    right : 30px;
+    background-repeat : no-repeat;
+    color:#ccc;
+}
+.gridPaginado tbody tr td > div.cleanbox:hover
+{
+	cursor:pointer;
+	color:#666;
+}
+/* Estilos para el contenido de la tabla */
+
+.gridPaginado .container table tr td.trbusqueda {
+    border-bottom:1px solid #ccc;
+    background-color:#f0f2f4;
+    padding:0 5px 5px;
+}
+
+.gridPaginado .container table tr.trsearch {
+    /*max-height : 25px;*/
+}
+
+.gridPaginado .container table tbody tr 
+{
+	background:#fff;
+}
+
+.gridPaginado .container table tbody tr td {
+    border-bottom: 1px dotted #CCCCCC;
+    text-align: left;
+    padding:10px 3px;
+}
+
+.gridPaginado .container table tbody td.last {
+    border-bottom: none;
+}
+
+.gridPaginado .container table tr.selected td {
+    /*background-color:#ABCFED;*/
+    background-color:#ddd;
+}
+
+.gridPaginado .container table tr.over{
+    /*background-color: #C7DDF0;*/
+    background-color:#f0f2f4;
+}
+
+.gridPaginado .container table tr
+{
+    color:#666;
+}
+
+.gridPaginado .container table tr.odd{
+    overflow: hidden; 
+}
+.gridPaginado .container table tr.BackRed{
+    color: red; 
+}
+.gridPaginado .container a {
+    color: #217ebd;
+    font-weight:normal;
+}
+
+/* Estilos para la paginacion */
+.gridPaginado .generalgrid .paginacion {
+    padding: 10px 10px 10px;
+    height:50px;
+    left : 0px;
+    color:#666;
+    /*background-color:#f0f2f4;*/
+}
+ 
+.gridPaginado .paginacion span {
+    display:inline-block;
+    /*margin:0px 20px;*/
+    width:24%;
+    padding-left:10px;
+}
+
+.gridPaginado .paginacion > ul {
+    text-align:center;
+    margin : 0 auto;
+    overflow: visible;
+    top:2px;
+    position:relative;
+}
+
+.gridPaginado .paginacion ul li 
+{
+	display:inline-block;
+}
+
+.gridPaginado .paginacion ul li a {
+    color: #217ebd;
+    overflow: visible;
+    padding: 2px 5px;
+}
+/*#grddvIrAPagina
+{
+    float:left;
+    margin-left:20px;
+    top:-2px;
+    position:relative;
+}*/
+/*#grddvPorAPagina
+{
+    float:left;
+    margin-left:20px;
+    margin-right: 20px;
+    top:-2px;
+    position:relative;
+}*/
+.gridPaginado .paginacion ul li a.activo {
+    background: #ff5619;
+    color: #fff;
+}
+/*Terminan los estilos para la paginacion*/
+
+.gridPaginado legend {
+    display: none;
+}
+
+.gridPaginado a:link, a:active, a:visited, a:focus, input, select, button {
+    outline:0;
+    text-decoration: none;
+}
+.gridPaginado a:hover {
+}
+
+.gridPaginado #imgOrdenamiento.descendente
+{
+    width:10px;
+    height:10px;
+    display:inline;
+    /*background:url(../images/ui-icons_negros.png) -128px -190px;*/
+}
+
+.gridPaginado #imgOrdenamiento.ascendente
+{
+    width:10px;
+    height:10px;
+    display:inline;
+    /*background:url(../images/ui-icons_negros.png) -160px -190px;*/
+}
+
+
+#imgOrdenamiento {
+    width: 1px;
+    height: 1px;
+}
+
+#gridArticulosbusquedaPagina
+{
+    width:50px !important;
+}
+.gridPaginado input[type="radio"],input[type="checkbox"]
+{
+    top:0px;
+}
+/*
+.gridPaginado select
+{
+    
+	background: #f0f2f4 url("imagenes/buttondown.png");
+	background-position: 280px center;
+    background-repeat: no-repeat;
+   	
+   	font-size: 16px;
+   	border: 0;
+   	border-radius: 3px;
+   -webkit-appearance: none;
+   -webkit-transition: all 0.4s;
+   -moz-transition: all 0.4s;
+   transition: all 0.4s;
+   -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+.gridPaginado select:hover{
+	background-color: #ddd;
+}
+*/
+.styled-select select {
+   background: transparent;
+   width: 268px;
+   padding: 5px;
+   /*font-size: 12px;*/
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 30px;
+   -webkit-appearance: none;   
+}
+   
+.styled-select {
+   width: 60px;
+   height: 30px;
+   overflow: hidden;
+   background: url("imagenes/downdiv_3.png") no-repeat right #f5f7ff;
+   border: 1px solid #99CCFF;
+   padding-right: auto;
+   display:inline-block;
+   }
